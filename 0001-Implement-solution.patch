@@ -1,0 +1,4148 @@
+diff --git a/src/main/java/Enums/ColorType.java b/src/main/java/Enums/ColorType.java
+index 0344369..5918902 100644
+--- a/src/main/java/Enums/ColorType.java
++++ b/src/main/java/Enums/ColorType.java
+@@ -1,10 +1,10 @@
+-package Enums;
+-
+-/**
+- * Enum pro typy barev.
+- */
+-public enum ColorType {
+-    RED(),
+-    GREEN(),
+-    BLUE();
+-}
++package Enums;
++
++/**
++ * Enum pro typy barev.
++ */
++public enum ColorType {
++    RED(),
++    GREEN(),
++    BLUE();
++}
+diff --git a/src/main/java/Enums/MatrixCoeficients.java b/src/main/java/Enums/MatrixCoeficients.java
+new file mode 100644
+index 0000000..df3c111
+--- /dev/null
++++ b/src/main/java/Enums/MatrixCoeficients.java
+@@ -0,0 +1,23 @@
++package Enums;
++
++
++
++public enum MatrixCoeficients {
++    S_3_1("{3,1}"),
++    S_4_1("{4,1}"), // (3,1) a (4,1), (4,3) a (5,2), (1,4) a (3,3)h
++    S_4_3("{4,3}"),
++    S_5_2("{5,2}"),
++    S_1_4("{1,4}"),
++    S_3_3("{3,3}");
++
++    String name;
++
++    MatrixCoeficients(String s) {
++        name = s;
++    }
++
++    @Override
++    public String toString() {
++        return name;
++    }
++}
+diff --git a/src/main/java/Enums/QualityType.java b/src/main/java/Enums/QualityType.java
+index 724fd17..92d33b8 100644
+--- a/src/main/java/Enums/QualityType.java
++++ b/src/main/java/Enums/QualityType.java
+@@ -1,13 +1,13 @@
+-package Enums;
+-
+-public enum QualityType {
+-
+-    Red(),
+-    Green(),
+-    Blue(),
+-    RGB(),
+-    Y(),
+-    Cb(),
+-    Cr(),
+-    YCbCr();
+-}
++package Enums;
++
++public enum QualityType {
++
++    Red(),
++    Green(),
++    Blue(),
++    RGB(),
++    Y(),
++    Cb(),
++    Cr(),
++    YCbCr();
++}
+diff --git a/src/main/java/Enums/SamplingType.java b/src/main/java/Enums/SamplingType.java
+index b0bdcc5..d3ad5e0 100644
+--- a/src/main/java/Enums/SamplingType.java
++++ b/src/main/java/Enums/SamplingType.java
+@@ -1,22 +1,22 @@
+-package Enums;
+-
+-/**
+- * Enum pro typy vzorkování.
+- */
+-public enum SamplingType {
+-    S_4_4_4("4:4:4"),
+-    S_4_2_2("4:2:2"),
+-    S_4_2_0("4:2:0"),
+-    S_4_1_1("4:1:1");
+-
+-    String name;
+-
+-    SamplingType(String s) {
+-        name = s;
+-    }
+-
+-    @Override
+-    public String toString() {
+-        return "Sampling: " + name;
+-    }
+-}
++package Enums;
++
++/**
++ * Enum pro typy vzorkování.
++ */
++public enum SamplingType {
++    S_4_4_4("4:4:4"),
++    S_4_2_2("4:2:2"),
++    S_4_2_0("4:2:0"),
++    S_4_1_1("4:1:1");
++
++    String name;
++
++    SamplingType(String s) {
++        name = s;
++    }
++
++    @Override
++    public String toString() {
++        return "Sampling: " + name;
++    }
++}
+diff --git a/src/main/java/Enums/TransformType.java b/src/main/java/Enums/TransformType.java
+index babed6d..c35a7c4 100644
+--- a/src/main/java/Enums/TransformType.java
++++ b/src/main/java/Enums/TransformType.java
+@@ -1,19 +1,19 @@
+-package Enums;
+-
+-/**
+- * Enum pro typy transformací.
+- */
+-public enum TransformType {
+-    DCT("DCT"),
+-    WHT("WHT");
+-
+-    String name;
+-
+-    TransformType(String dct) {
+-        name = dct;
+-    }
+-    @Override
+-    public String toString() {
+-        return "Function: " + name;
+-    }
+-}
++package Enums;
++
++/**
++ * Enum pro typy transformací.
++ */
++public enum TransformType {
++    DCT("DCT"),
++    WHT("WHT");
++
++    String name;
++
++    TransformType(String dct) {
++        name = dct;
++    }
++    @Override
++    public String toString() {
++        return "Function: " + name;
++    }
++}
+diff --git a/src/main/java/Enums/WatermarkComponent.java b/src/main/java/Enums/WatermarkComponent.java
+new file mode 100644
+index 0000000..057db9c
+--- /dev/null
++++ b/src/main/java/Enums/WatermarkComponent.java
+@@ -0,0 +1,9 @@
++package Enums;
++
++
++public enum WatermarkComponent {
++    Y(),
++    Cb(),
++    Cr();
++
++}
+\ No newline at end of file
+diff --git a/src/main/java/Graphics/Dialogs.java b/src/main/java/Graphics/Dialogs.java
+index bcc17b7..d68d5d3 100644
+--- a/src/main/java/Graphics/Dialogs.java
++++ b/src/main/java/Graphics/Dialogs.java
+@@ -1,258 +1,258 @@
+-package Graphics;
+-
+-import Core.FilePaths;
+-import javafx.beans.binding.Bindings;
+-import javafx.beans.value.ChangeListener;
+-import javafx.geometry.Pos;
+-import javafx.scene.Scene;
+-import javafx.scene.control.Label;
+-import javafx.scene.image.Image;
+-import javafx.scene.image.ImageView;
+-import javafx.scene.layout.BorderPane;
+-import javafx.scene.layout.HBox;
+-import javafx.scene.layout.StackPane;
+-import javafx.stage.FileChooser;
+-import javafx.stage.Stage;
+-import javafx.util.Pair;
+-
+-import javax.imageio.ImageIO;
+-import java.awt.*;
+-import java.awt.image.BufferedImage;
+-import java.io.ByteArrayInputStream;
+-import java.io.ByteArrayOutputStream;
+-import java.io.File;
+-import java.io.IOException;
+-import java.util.ArrayList;
+-import java.util.Iterator;
+-
+-
+-public class Dialogs {
+-    private static final int IMAGE_MAX_SIZE = 800;
+-
+-    private static ArrayList<Stage> openStages = new ArrayList<>();
+-
+-    public static void showImageInWindow(BufferedImage bufferedImage, String title) {
+-        showImageInWindow(bufferedImage, title, false);
+-    }
+-
+-    /**
+-     * Show buffered image in new window.
+-     *
+-     * @param bufferedImage
+-     * @param title
+-     * @param keepOpen      If it is set to true, window can be close only manually. Close All button wont work on it.
+-     */
+-
+-    public static void showImageInWindow(BufferedImage bufferedImage, String title, boolean keepOpen) {
+-        if (bufferedImage == null) return;
+-
+-        Stage stage = new Stage();
+-
+-        stage.setTitle(String.format("[%dx%d] %s", bufferedImage.getWidth(), bufferedImage.getHeight(), title));
+-        stage.getIcons().add(FilePaths.favicon);
+-
+-        BorderPane root = new BorderPane();
+-
+-        Scene scene = new Scene(root);
+-        StackPane stackPane = setImageStackPane(bufferedImage, title, scene, true, bufferedImage.getWidth(), bufferedImage.getHeight());
+-        ImageView imageView = (ImageView) stackPane.getChildren().get(0);
+-        root.setCenter(stackPane);
+-        stage.setScene(scene);
+-
+-        stage.setUserData(keepOpen);
+-
+-        stage.setOnCloseRequest((e) -> openStages.remove(stage));
+-        openStages.add(stage);
+-
+-        setUpSizeListener(imageView, bufferedImage.getWidth(), bufferedImage.getHeight(), stage, scene, title);
+-
+-        stage.show();
+-    }
+-
+-    public static void showMultipleImageInWindow(String title, boolean keepOpen, boolean showNames, Pair<BufferedImage, String>... images) {
+-        Stage stage = new Stage();
+-        stage.getIcons().add(FilePaths.favicon);
+-        HBox hBox = new HBox();
+-        BorderPane root = new BorderPane();
+-        root.setCenter(hBox);
+-
+-        Scene scene = new Scene(root);
+-        stage.setScene(scene);
+-        stage.setUserData(keepOpen);
+-
+-        stage.setOnCloseRequest((e) -> openStages.remove(stage));
+-        openStages.add(stage);
+-
+-        int jointWidth = 0;
+-        int maxHeight = 0;
+-
+-        // Count max images width and height
+-        for (Pair<BufferedImage, String> image : images) {
+-            jointWidth += image.getKey().getWidth();
+-            maxHeight = Math.max(maxHeight, image.getKey().getHeight());
+-        }
+-
+-        ImageView firstImageView = null;
+-        int imageWidth = 0;
+-        int imageHeight = 0;
+-
+-        for (Pair<BufferedImage, String> imagePair : images) {
+-            BufferedImage image = imagePair.getKey();
+-            StackPane stackPane = setImageStackPane(image, imagePair.getValue(), scene, showNames, jointWidth, maxHeight);
+-
+-            if (firstImageView == null) {
+-                firstImageView = (ImageView) stackPane.getChildren().get(0);
+-                imageWidth = image.getWidth();
+-                imageHeight = image.getHeight();
+-            }
+-
+-            hBox.getChildren().add(stackPane);
+-        }
+-
+-        handleMaxSize(stage, jointWidth, maxHeight);
+-
+-        // Count image percentage of window size
+-        setUpSizeListener(firstImageView, imageWidth, imageHeight, stage, scene, title);
+-
+-        stage.show();
+-    }
+-
+-    /**
+-     * Close all open windows with images.
+-     */
+-    public static void closeAllWindows() {
+-        for (Stage stage : openStages) {
+-            stage.close();
+-        }
+-        openStages.clear();
+-    }
+-
+-    /**
+-     * Close all images windows except windows with keepOpen set to true.
+-     */
+-    public static void closeImageWindows() {
+-        Iterator<Stage> iterator = openStages.iterator();
+-        while (iterator.hasNext()) {
+-            Stage stage = iterator.next();
+-            if (!(boolean) stage.getUserData()) {
+-                iterator.remove();
+-                stage.close();
+-            }
+-        }
+-    }
+-
+-    /**
+-     * Load image from file into BufferedImage.
+-     *
+-     * @param imageFile File with image.
+-     * @return BufferedImage
+-     */
+-    public static BufferedImage loadImageFromPath(File imageFile) {
+-        if (!imageFile.exists()) throw new RuntimeException("Image file does not exist.");
+-
+-        try {
+-            return ImageIO.read(imageFile);
+-        } catch (IOException e) {
+-            throw new RuntimeException(e);
+-        }
+-    }
+-
+-    /**
+-     * Load image from path into BufferedImage.
+-     *
+-     * @param pathToIImage Path to image file.
+-     * @return BufferedImage
+-     */
+-    public static BufferedImage loadImageFromPath(String pathToIImage) {
+-        return loadImageFromPath(new File(pathToIImage));
+-    }
+-
+-    /**
+-     * Open file chooser dialog and return selected file.
+-     * It is limited to image files only.
+-     * Default directory is Images directory in project root.
+-     *
+-     * @return Selected image file.
+-     */
+-    public static File openFile() {
+-        FileChooser fileChooser = new FileChooser();
+-        fileChooser.setTitle("Change default image");
+-        fileChooser.setInitialDirectory(new File("Images/"));
+-
+-        fileChooser.getExtensionFilters().add(
+-                new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp", "*.jpeg"));
+-
+-        File ff = fileChooser.showOpenDialog(null);
+-
+-        if (ff != null) {
+-            return ff;
+-        }
+-
+-        System.out.println("Wrong file");
+-        return null;
+-    }
+-
+-    private static Image convertImage(BufferedImage image) {
+-        // Convert buffered image to JavaFX image. Equivalent to SwingFXUtils.toFXImage(bufferedImage, null);
+-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+-        try {
+-            ImageIO.write(image, "png", baos);
+-            baos.flush();
+-        } catch (IOException e) {
+-            throw new RuntimeException(e);
+-        }
+-        return new Image(new ByteArrayInputStream(baos.toByteArray()));
+-    }
+-
+-    private static StackPane setImageStackPane(BufferedImage image, String title, Scene scene, boolean showNames, int maxWidth, int maxHeight) {
+-        StackPane stackPane = new StackPane();
+-
+-        Image fxImage = convertImage(image);
+-
+-        ImageView imageView = new ImageView(fxImage);
+-
+-        // Handle image resize
+-        imageView.setPreserveRatio(true);
+-        imageView.fitWidthProperty().bind(Bindings.multiply(scene.widthProperty(), fxImage.getWidth() / maxWidth));
+-        imageView.fitHeightProperty().bind(Bindings.multiply(scene.heightProperty(), fxImage.getHeight() / maxHeight));
+-
+-        // Add image label
+-        stackPane.getChildren().add(imageView);
+-
+-        if (showNames) {
+-            Label l = new Label(String.format("%dx%d %s", image.getWidth(), image.getHeight(), title));
+-            l.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-text-fill: white;");
+-            stackPane.getChildren().add(l);
+-            StackPane.setAlignment(l, Pos.TOP_LEFT);
+-        }
+-
+-        return stackPane;
+-    }
+-
+-    private static void handleMaxSize(Stage stage, int maxWidth, int maxHeight) {
+-        // Handle bigger images
+-        double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+-        double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+-
+-        if (maxWidth > screenWidth) {
+-            stage.setWidth(screenWidth);
+-        }
+-
+-        if (maxHeight > screenHeight) {
+-            stage.setHeight(screenHeight);
+-        }
+-    }
+-
+-    private static void setUpSizeListener(ImageView imageView, int imageWidth, int imageHeight, Stage stage, Scene scene, String title) {
+-        // Count image percentage of window size
+-        ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
+-            double scaleWidth = imageView.getFitWidth() / imageWidth;
+-            double scaleHeight = imageView.getFitHeight() / imageHeight;
+-            double percentageScale = Math.min(scaleWidth, scaleHeight) * 100;
+-            stage.setTitle(String.format("%s (%.2f%%)", title, percentageScale));
+-        };
+-
+-        scene.widthProperty().addListener(sizeListener);
+-        scene.heightProperty().addListener(sizeListener);
+-    }
+-}
++package Graphics;
++
++import Core.FilePaths;
++import javafx.beans.binding.Bindings;
++import javafx.beans.value.ChangeListener;
++import javafx.geometry.Pos;
++import javafx.scene.Scene;
++import javafx.scene.control.Label;
++import javafx.scene.image.Image;
++import javafx.scene.image.ImageView;
++import javafx.scene.layout.BorderPane;
++import javafx.scene.layout.HBox;
++import javafx.scene.layout.StackPane;
++import javafx.stage.FileChooser;
++import javafx.stage.Stage;
++import javafx.util.Pair;
++
++import javax.imageio.ImageIO;
++import java.awt.*;
++import java.awt.image.BufferedImage;
++import java.io.ByteArrayInputStream;
++import java.io.ByteArrayOutputStream;
++import java.io.File;
++import java.io.IOException;
++import java.util.ArrayList;
++import java.util.Iterator;
++
++
++public class Dialogs {
++    private static final int IMAGE_MAX_SIZE = 800;
++
++    private static ArrayList<Stage> openStages = new ArrayList<>();
++
++    public static void showImageInWindow(BufferedImage bufferedImage, String title) {
++        showImageInWindow(bufferedImage, title, false);
++    }
++
++    /**
++     * Show buffered image in new window.
++     *
++     * @param bufferedImage
++     * @param title
++     * @param keepOpen      If it is set to true, window can be close only manually. Close All button wont work on it.
++     */
++
++    public static void showImageInWindow(BufferedImage bufferedImage, String title, boolean keepOpen) {
++        if (bufferedImage == null) return;
++
++        Stage stage = new Stage();
++
++        stage.setTitle(String.format("[%dx%d] %s", bufferedImage.getWidth(), bufferedImage.getHeight(), title));
++        stage.getIcons().add(FilePaths.favicon);
++
++        BorderPane root = new BorderPane();
++
++        Scene scene = new Scene(root);
++        StackPane stackPane = setImageStackPane(bufferedImage, title, scene, true, bufferedImage.getWidth(), bufferedImage.getHeight());
++        ImageView imageView = (ImageView) stackPane.getChildren().get(0);
++        root.setCenter(stackPane);
++        stage.setScene(scene);
++
++        stage.setUserData(keepOpen);
++
++        stage.setOnCloseRequest((e) -> openStages.remove(stage));
++        openStages.add(stage);
++
++        setUpSizeListener(imageView, bufferedImage.getWidth(), bufferedImage.getHeight(), stage, scene, title);
++
++        stage.show();
++    }
++
++    public static void showMultipleImageInWindow(String title, boolean keepOpen, boolean showNames, Pair<BufferedImage, String>... images) {
++        Stage stage = new Stage();
++        stage.getIcons().add(FilePaths.favicon);
++        HBox hBox = new HBox();
++        BorderPane root = new BorderPane();
++        root.setCenter(hBox);
++
++        Scene scene = new Scene(root);
++        stage.setScene(scene);
++        stage.setUserData(keepOpen);
++
++        stage.setOnCloseRequest((e) -> openStages.remove(stage));
++        openStages.add(stage);
++
++        int jointWidth = 0;
++        int maxHeight = 0;
++
++        // Count max images width and height
++        for (Pair<BufferedImage, String> image : images) {
++            jointWidth += image.getKey().getWidth();
++            maxHeight = Math.max(maxHeight, image.getKey().getHeight());
++        }
++
++        ImageView firstImageView = null;
++        int imageWidth = 0;
++        int imageHeight = 0;
++
++        for (Pair<BufferedImage, String> imagePair : images) {
++            BufferedImage image = imagePair.getKey();
++            StackPane stackPane = setImageStackPane(image, imagePair.getValue(), scene, showNames, jointWidth, maxHeight);
++
++            if (firstImageView == null) {
++                firstImageView = (ImageView) stackPane.getChildren().get(0);
++                imageWidth = image.getWidth();
++                imageHeight = image.getHeight();
++            }
++
++            hBox.getChildren().add(stackPane);
++        }
++
++        handleMaxSize(stage, jointWidth, maxHeight);
++
++        // Count image percentage of window size
++        setUpSizeListener(firstImageView, imageWidth, imageHeight, stage, scene, title);
++
++        stage.show();
++    }
++
++    /**
++     * Close all open windows with images.
++     */
++    public static void closeAllWindows() {
++        for (Stage stage : openStages) {
++            stage.close();
++        }
++        openStages.clear();
++    }
++
++    /**
++     * Close all images windows except windows with keepOpen set to true.
++     */
++    public static void closeImageWindows() {
++        Iterator<Stage> iterator = openStages.iterator();
++        while (iterator.hasNext()) {
++            Stage stage = iterator.next();
++            if (!(boolean) stage.getUserData()) {
++                iterator.remove();
++                stage.close();
++            }
++        }
++    }
++
++    /**
++     * Load image from file into BufferedImage.
++     *
++     * @param imageFile File with image.
++     * @return BufferedImage
++     */
++    public static BufferedImage loadImageFromPath(File imageFile) {
++        if (!imageFile.exists()) throw new RuntimeException("Image file does not exist.");
++
++        try {
++            return ImageIO.read(imageFile);
++        } catch (IOException e) {
++            throw new RuntimeException(e);
++        }
++    }
++
++    /**
++     * Load image from path into BufferedImage.
++     *
++     * @param pathToIImage Path to image file.
++     * @return BufferedImage
++     */
++    public static BufferedImage loadImageFromPath(String pathToIImage) {
++        return loadImageFromPath(new File(pathToIImage));
++    }
++
++    /**
++     * Open file chooser dialog and return selected file.
++     * It is limited to image files only.
++     * Default directory is Images directory in project root.
++     *
++     * @return Selected image file.
++     */
++    public static File openFile() {
++        FileChooser fileChooser = new FileChooser();
++        fileChooser.setTitle("Change default image");
++        fileChooser.setInitialDirectory(new File("Images/"));
++
++        fileChooser.getExtensionFilters().add(
++                new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.bmp", "*.jpeg"));
++
++        File ff = fileChooser.showOpenDialog(null);
++
++        if (ff != null) {
++            return ff;
++        }
++
++        System.out.println("Wrong file");
++        return null;
++    }
++
++    private static Image convertImage(BufferedImage image) {
++        // Convert buffered image to JavaFX image. Equivalent to SwingFXUtils.toFXImage(bufferedImage, null);
++        ByteArrayOutputStream baos = new ByteArrayOutputStream();
++        try {
++            ImageIO.write(image, "png", baos);
++            baos.flush();
++        } catch (IOException e) {
++            throw new RuntimeException(e);
++        }
++        return new Image(new ByteArrayInputStream(baos.toByteArray()));
++    }
++
++    private static StackPane setImageStackPane(BufferedImage image, String title, Scene scene, boolean showNames, int maxWidth, int maxHeight) {
++        StackPane stackPane = new StackPane();
++
++        Image fxImage = convertImage(image);
++
++        ImageView imageView = new ImageView(fxImage);
++
++        // Handle image resize
++        imageView.setPreserveRatio(true);
++        imageView.fitWidthProperty().bind(Bindings.multiply(scene.widthProperty(), fxImage.getWidth() / maxWidth));
++        imageView.fitHeightProperty().bind(Bindings.multiply(scene.heightProperty(), fxImage.getHeight() / maxHeight));
++
++        // Add image label
++        stackPane.getChildren().add(imageView);
++
++        if (showNames) {
++            Label l = new Label(String.format("%dx%d %s", image.getWidth(), image.getHeight(), title));
++            l.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-text-fill: white;");
++            stackPane.getChildren().add(l);
++            StackPane.setAlignment(l, Pos.TOP_LEFT);
++        }
++
++        return stackPane;
++    }
++
++    private static void handleMaxSize(Stage stage, int maxWidth, int maxHeight) {
++        // Handle bigger images
++        double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
++        double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
++
++        if (maxWidth > screenWidth) {
++            stage.setWidth(screenWidth);
++        }
++
++        if (maxHeight > screenHeight) {
++            stage.setHeight(screenHeight);
++        }
++    }
++
++    private static void setUpSizeListener(ImageView imageView, int imageWidth, int imageHeight, Stage stage, Scene scene, String title) {
++        // Count image percentage of window size
++        ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
++            double scaleWidth = imageView.getFitWidth() / imageWidth;
++            double scaleHeight = imageView.getFitHeight() / imageHeight;
++            double percentageScale = Math.min(scaleWidth, scaleHeight) * 100;
++            stage.setTitle(String.format("%s (%.2f%%)", title, percentageScale));
++        };
++
++        scene.widthProperty().addListener(sizeListener);
++        scene.heightProperty().addListener(sizeListener);
++    }
++}
+diff --git a/src/main/java/Graphics/MainWindowController.java b/src/main/java/Graphics/MainWindowController.java
+index b261cc3..aff55cb 100644
+--- a/src/main/java/Graphics/MainWindowController.java
++++ b/src/main/java/Graphics/MainWindowController.java
+@@ -1,326 +1,385 @@
+-package Graphics;
+-
+-import Core.FilePaths;
+-import Enums.ColorType;
+-import Enums.QualityType;
+-import Enums.SamplingType;
+-import Enums.TransformType;
+-import Jpeg.Process;
+-import javafx.beans.binding.Bindings;
+-import javafx.collections.FXCollections;
+-import javafx.collections.ObservableList;
+-import javafx.fxml.FXML;
+-import javafx.fxml.Initializable;
+-import javafx.scene.control.*;
+-import javafx.stage.Stage;
+-import javafx.stage.WindowEvent;
+-import javafx.util.Pair;
+-
+-import java.io.File;
+-import java.net.URL;
+-import java.text.NumberFormat;
+-import java.util.ResourceBundle;
+-import java.util.function.UnaryOperator;
+-
+-public class MainWindowController implements Initializable {
+-    @FXML
+-    private Button buttonInverseQuantize, buttonInverseToRGB, buttonInverseSample, buttonInverseTransform,
+-            buttonQuantize, buttonSample, buttonToYCbCr, buttonTransform, buttonQualitySSIM, buttonQualityPSNR;
+-
+-    @FXML
+-    private TextField qualityMSE, qualityMAE, qualityPSNR, qualitySAE;
+-    @FXML
+-    public TextField qualitySSIM, qualityMSSIM;
+-    @FXML
+-    public ComboBox<QualityType> qualityPSNRType;
+-    @FXML
+-    public ComboBox<QualityType> qualitySSIMType;
+-
+-
+-    @FXML
+-    private Slider quantizeQuality;
+-    @FXML
+-    private TextField quantizeQualityField;
+-    @FXML
+-    private CheckBox shadesOfGrey, showSteps;
+-
+-    @FXML
+-    private Spinner<Integer> transformBlock;
+-    @FXML
+-    private ComboBox<TransformType> transformType;
+-    @FXML
+-    private ComboBox<SamplingType> sampling;
+-    @FXML
+-    private CheckMenuItem lockControlsButton, qualityOnChange;
+-
+-
+-    private Process process;
+-    private boolean lockControls = true;
+-
+-    /**
+-     * Inicializace okna, nastavení výchozích hodnot. Naplnění prvků v rozhraní.
+-     */
+-    @Override
+-    public void initialize(URL url, ResourceBundle resourceBundle) {
+-        // Nastavení všech hodnot do combo boxů
+-        sampling.getItems().setAll(SamplingType.values());
+-        transformType.getItems().setAll(TransformType.values());
+-
+-        // Nastavení výchozích hodnot
+-        sampling.getSelectionModel().select(SamplingType.S_4_1_1);
+-        transformType.getSelectionModel().select(TransformType.DCT);
+-        quantizeQuality.setValue(50);
+-
+-
+-        // Vytvoření listu možností, které budou uvnitř spinneru
+-        ObservableList<Integer> blocks = FXCollections.observableArrayList(2, 4, 8, 16, 32, 64, 128, 256, 512);
+-        SpinnerValueFactory<Integer> spinnerValues = new SpinnerValueFactory.ListSpinnerValueFactory<>(blocks);
+-        spinnerValues.setValue(8);
+-        transformBlock.setValueFactory(spinnerValues);
+-
+-        NumberFormat nf = NumberFormat.getInstance();
+-        nf.setMaximumFractionDigits(2);
+-
+-        // Nastavení formátu čísel v textových polích, aby bylo možné zadávat pouze čísla. Plus metoda, která je na konci souboru.
+-        quantizeQualityField.setTextFormatter(new TextFormatter<>(filter));
+-
+-        // Propojení slideru s textovým polem
+-        quantizeQualityField.textProperty().bindBidirectional(quantizeQuality.valueProperty(), nf);
+-
+-        lockControlsButton.setSelected(lockControls);
+-        lockControlsButton.selectedProperty().addListener((ob, ov, nv) -> {lockControls = nv;});
+-
+-
+-        qualityPSNRType.getItems().setAll(QualityType.values());
+-        qualitySSIMType.getItems().setAll(QualityType.Y, QualityType.Cb, QualityType.Cr);
+-
+-        buttonQualitySSIM.visibleProperty().bind(Bindings.not(qualityOnChange.selectedProperty()));
+-        buttonQualityPSNR.visibleProperty().bind(Bindings.not(qualityOnChange.selectedProperty()));
+-
+-        qualitySSIMType.getSelectionModel().selectedItemProperty().addListener((ob, ov, nv) -> {
+-            if (nv == null) return;
+-
+-            if (qualityOnChange.isSelected()) {
+-                CountQualitySSIM();
+-            } else {
+-                qualitySSIM.setText("");
+-                qualityMSSIM.setText("");
+-            }
+-        });
+-
+-        qualityPSNRType.getSelectionModel().selectedItemProperty().addListener((ob, ov, nv) -> {
+-            if (nv == null) return;
+-
+-            if (qualityOnChange.isSelected()) {
+-                CountQuality();
+-            } else {
+-                qualityMAE.setText("");
+-                qualityMSE.setText("");
+-                qualityPSNR.setText("");
+-                qualitySAE.setText("");
+-            }
+-        });
+-
+-        // Nastavení výchozího obrázku
+-        process = new Process(FilePaths.defaultImage);
+-    }
+-
+-    public void ChangeImage() {
+-        File file = Dialogs.openFile();
+-        process = new Process(file.getAbsolutePath());
+-        Reset();
+-    }
+-
+-    public void Close() {
+-        Stage stage = ((Stage) buttonSample.getScene().getWindow());
+-        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+-    }
+-
+-    public void Reset() {
+-        Dialogs.closeAllWindows();
+-        buttonToYCbCr.setDisable(false);
+-        buttonInverseToRGB.setDisable(false);
+-        sampling.setDisable(false);
+-        buttonSample.setDisable(false);
+-        buttonInverseSample.setDisable(false);
+-
+-        buttonInverseTransform.setDisable(false);
+-        transformType.setDisable(false);
+-        transformBlock.setDisable(false);
+-        buttonTransform.setDisable(false);
+-
+-        buttonQuantize.setDisable(false);
+-        buttonInverseQuantize.setDisable(false);
+-        quantizeQuality.setDisable(false);
+-        quantizeQualityField.setDisable(false);
+-
+-        qualityPSNRType.setValue(null);
+-        qualitySSIMType.setValue(null);
+-        qualityMSE.setText("");
+-        qualityMAE.setText("");
+-        qualityPSNR.setText("");
+-        qualitySAE.setText("");
+-        qualitySSIM.setText("");
+-        qualityMSSIM.setText("");
+-    }
+-
+-    public void CloseWindows() {
+-        Dialogs.closeImageWindows();
+-    }
+-
+-    public void ShowOriginal() {
+-        Dialogs.showImageInWindow(process.getOriginalImage(), "Original", true);
+-    }
+-
+-    public void ShowRGBModified() {
+-        Dialogs.showImageInWindow(process.getImageFromModifiedRGB(), "Modified", false);
+-    }
+-
+-
+-    public void ConvertToYCbCr() {
+-        buttonToYCbCr.setDisable(lockControls);
+-        process.convertRGBToYCbCr();
+-
+-        if (showSteps.isSelected()) {
+-            Dialogs.showMultipleImageInWindow("Original", false, true,
+-                                              new Pair<>(process.getOneColorImageFromYCbCr(process.getOriginalY()), "Y"),
+-                                              new Pair<>(process.getOneColorImageFromYCbCr(process.getOriginalCb()), "Cb"),
+-                                              new Pair<>(process.getOneColorImageFromYCbCr(process.getOriginalCr()), "Cr"));
+-
+-        }
+-    }
+-
+-    public void ConvertToRGB() {
+-        buttonInverseToRGB.setDisable(lockControls);
+-        process.convertYCbCrToRGB();
+-        qualitySSIMType.getSelectionModel().select(QualityType.RGB);
+-        CountQuality();
+-        if (showSteps.isSelected()) {
+-            Dialogs.showMultipleImageInWindow("Modified", false, true,
+-                                              new Pair<>(process.getOneColorImageFromRGB(process.getModifiedRed(), ColorType.RED, shadesOfGrey.isSelected()), "Red"),
+-                                              new Pair<>(process.getOneColorImageFromRGB(process.getModifiedGreen(), ColorType.GREEN, shadesOfGrey.isSelected()), "Green"),
+-                                              new Pair<>(process.getOneColorImageFromRGB(process.getModifiedBlue(), ColorType.BLUE, shadesOfGrey.isSelected()), "Blue"));
+-        }
+-    }
+-
+-    public void Sample() {
+-        buttonSample.setDisable(lockControls);
+-        sampling.setDisable(lockControls);
+-        process.downSample(sampling.getValue());
+-        showModifiedYCbCrStep("Sampling");
+-    }
+-
+-    public void InverseSample() {
+-        buttonInverseSample.setDisable(lockControls);
+-        process.upSample(sampling.getValue());
+-        showModifiedYCbCrStep("Inverse sampling");
+-    }
+-
+-    public void Transform() {
+-        transformType.setDisable(lockControls);
+-        transformBlock.setDisable(lockControls);
+-        buttonTransform.setDisable(lockControls);
+-        process.transform(transformType.getSelectionModel().getSelectedItem(), transformBlock.getValue());
+-        showModifiedYCbCrStep("Transform");
+-    }
+-
+-    public void InverseTransform() {
+-        buttonInverseTransform.setDisable(lockControls);
+-        process.inverseTransform(transformType.getSelectionModel().getSelectedItem(), transformBlock.getValue());
+-        showModifiedYCbCrStep("Inverse transform");
+-    }
+-
+-    public void Quantize() {
+-        buttonQuantize.setDisable(lockControls);
+-        quantizeQuality.setDisable(lockControls);
+-        quantizeQualityField.setDisable(lockControls);
+-        transformBlock.setDisable(transformBlock.isDisabled() || lockControls);
+-        process.quantize(quantizeQuality.getValue(), transformBlock.getValue());
+-        showModifiedYCbCrStep("Quantize");
+-    }
+-
+-    public void InverseQuantize() {
+-        buttonInverseQuantize.setDisable(lockControls);
+-        process.inverseQuantize(quantizeQuality.getValue(), transformBlock.getValue());
+-        showModifiedYCbCrStep("Inverse quantize");
+-    }
+-
+-    public void CountQuality() {
+-        process.countQualityPSNR(qualityPSNRType.getSelectionModel().getSelectedItem(),
+-                                 qualityMSE.textProperty(), qualityMAE.textProperty(),
+-                                 qualityPSNR.textProperty(), qualitySAE.textProperty());
+-    }
+-
+-    public void CountQualitySSIM() {
+-        process.countQualitySSIM(qualitySSIMType.getSelectionModel().getSelectedItem(),
+-                                 qualitySSIM.textProperty(), qualityMSSIM.textProperty());
+-    }
+-
+-    // region Zobrazení barevných složek
+-    public void ShowRedModified() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getModifiedRed(), ColorType.RED, shadesOfGrey.isSelected()), "Modified Red");
+-    }
+-
+-    public void ShowRedOriginal() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getOriginalRed(), ColorType.RED, shadesOfGrey.isSelected()), "Original Red");
+-    }
+-
+-    public void ShowGreenModified() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getModifiedGreen(), ColorType.GREEN, shadesOfGrey.isSelected()), "Modified Green");
+-    }
+-
+-    public void ShowGreenOriginal() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getOriginalGreen(), ColorType.GREEN, shadesOfGrey.isSelected()), "Original Green");
+-    }
+-
+-    public void ShowBlueModified() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getModifiedBlue(), ColorType.BLUE, shadesOfGrey.isSelected()), "Modified Blue");
+-    }
+-
+-    public void ShowBlueOriginal() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getOriginalBlue(), ColorType.BLUE, shadesOfGrey.isSelected()), "Original Blue");
+-    }
+-
+-    public void ShowCbModified() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getModifiedCb()), "Modified Cb");
+-    }
+-
+-    public void ShowCbOriginal() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getOriginalCb()), "Original Cb");
+-    }
+-
+-    public void ShowCrModified() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getModifiedCr()), "Modified Cr");
+-    }
+-
+-    public void ShowCrOriginal() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getOriginalCr()), "Original Cr");
+-    }
+-
+-    public void ShowYModified() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getModifiedY()), "Modified Y");
+-    }
+-
+-    public void ShowYOriginal() {
+-        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getOriginalY()), "Original Y");
+-    }
+-    // endregion
+-
+-    private static UnaryOperator<TextFormatter.Change> filter = change -> {
+-        String text = change.getText();
+-        if (text.matches("[0-9,]*")) return change;
+-        return null;
+-    };
+-
+-    private void showModifiedYCbCrStep(String title) {
+-        if (showSteps.isSelected()) {
+-            Dialogs.showMultipleImageInWindow(title, false, true,
+-                                              new Pair<>(process.getOneColorImageFromYCbCr(process.getModifiedY()), "Y"),
+-                                              new Pair<>(process.getOneColorImageFromYCbCr(process.getModifiedCb()), "Cb"),
+-                                              new Pair<>(process.getOneColorImageFromYCbCr(process.getModifiedCr()), "Cr"));
+-
+-        }
+-    }
+-
+-}
+-
++package Graphics;
++
++import Core.FilePaths;
++import Enums.ColorType;
++import Enums.MatrixCoeficients;
++import Enums.QualityType;
++import Enums.SamplingType;
++import Enums.TransformType;
++import Enums.WatermarkComponent;
++import Jpeg.Process;
++import javafx.beans.binding.Bindings;
++import javafx.collections.FXCollections;
++import javafx.collections.ObservableList;
++import javafx.fxml.FXML;
++import javafx.fxml.Initializable;
++import javafx.scene.control.*;
++import javafx.stage.Stage;
++import javafx.stage.WindowEvent;
++import javafx.util.Pair;
++
++import java.io.File;
++import java.io.IOException;
++import java.net.URL;
++import java.text.NumberFormat;
++import java.util.ResourceBundle;
++import java.util.function.UnaryOperator;
++
++public class MainWindowController implements Initializable {
++    @FXML
++    private Button buttonInverseQuantize, buttonInverseToRGB, buttonInverseSample, buttonInverseTransform,
++            buttonQuantize, buttonSample, buttonToYCbCr, buttonTransform, buttonQualitySSIM, buttonQualityPSNR, buttonWatermark;
++
++    @FXML
++    private TextField qualityMSE, qualityMAE, qualityPSNR, qualitySAE;
++    @FXML
++    public TextField qualitySSIM, qualityMSSIM;
++    @FXML
++    public ComboBox<QualityType> qualityPSNRType;
++    @FXML
++    public ComboBox<QualityType> qualitySSIMType;
++
++
++    @FXML
++    private Slider quantizeQuality;
++    @FXML
++    private TextField quantizeQualityField;
++    @FXML
++    private CheckBox shadesOfGrey, showSteps;
++
++    @FXML
++    private Spinner<Integer> transformBlock;
++    @FXML
++    private ComboBox<TransformType> transformType;
++    @FXML
++    private ComboBox<SamplingType> sampling;
++    @FXML
++    private CheckMenuItem lockControlsButton, qualityOnChange;
++    @FXML
++    private ComboBox<WatermarkComponent> watermarkLSB;
++    @FXML
++    private Spinner<Integer> bitDepth;
++    @FXML
++    private ComboBox<MatrixCoeficients> coeficient1;
++    @FXML
++    private ComboBox<MatrixCoeficients> coeficient2;
++    @FXML
++    private Spinner<Integer> depthDCT;
++
++    private Process process;
++    private boolean lockControls = true;
++
++    /**
++     * Inicializace okna, nastavení výchozích hodnot. Naplnění prvků v rozhraní.
++     */
++    @Override
++    public void initialize(URL url, ResourceBundle resourceBundle) {
++        // Nastavení všech hodnot do combo boxů
++        sampling.getItems().setAll(SamplingType.values());
++        transformType.getItems().setAll(TransformType.values());
++        watermarkLSB.getItems().setAll(WatermarkComponent.values());
++        coeficient1.getItems().setAll(MatrixCoeficients.values());
++        coeficient2.getItems().setAll(MatrixCoeficients.values());
++
++        // Nastavení výchozích hodnot
++        sampling.getSelectionModel().select(SamplingType.S_4_1_1);
++        transformType.getSelectionModel().select(TransformType.DCT);
++        quantizeQuality.setValue(50);
++        watermarkLSB.getSelectionModel().select(WatermarkComponent.Y);
++
++        // Vytvoření listu možností, které budou uvnitř spinneru
++        ObservableList<Integer> blocks = FXCollections.observableArrayList(2, 4, 8, 16, 32, 64, 128, 256, 512);
++        SpinnerValueFactory<Integer> spinnerValues = new SpinnerValueFactory.ListSpinnerValueFactory<>(blocks);
++        spinnerValues.setValue(8);
++        transformBlock.setValueFactory(spinnerValues);
++        
++        ObservableList<Integer> vals = FXCollections.observableArrayList(0,1,2,3,4,5,6,7); 
++        SpinnerValueFactory<Integer> spinnerValues2 = new SpinnerValueFactory.ListSpinnerValueFactory<>(vals);
++        bitDepth.setValueFactory(spinnerValues2);
++
++        ObservableList<Integer> depthOptions = FXCollections.observableArrayList(2, 4, 8, 16, 32, 64, 128, 256, 512);
++        SpinnerValueFactory<Integer> spinnerValues3 = new SpinnerValueFactory.ListSpinnerValueFactory<>(depthOptions);
++        depthDCT.setValueFactory(spinnerValues3);
++
++        NumberFormat nf = NumberFormat.getInstance();
++        nf.setMaximumFractionDigits(2);
++
++        // Nastavení formátu čísel v textových polích, aby bylo možné zadávat pouze čísla. Plus metoda, která je na konci souboru.
++        quantizeQualityField.setTextFormatter(new TextFormatter<>(filter));
++
++        // Propojení slideru s textovým polem
++        quantizeQualityField.textProperty().bindBidirectional(quantizeQuality.valueProperty(), nf);
++
++        lockControlsButton.setSelected(lockControls);
++        lockControlsButton.selectedProperty().addListener((ob, ov, nv) -> {lockControls = nv;});
++
++
++        qualityPSNRType.getItems().setAll(QualityType.values());
++        qualitySSIMType.getItems().setAll(QualityType.Y, QualityType.Cb, QualityType.Cr);
++
++        buttonQualitySSIM.visibleProperty().bind(Bindings.not(qualityOnChange.selectedProperty()));
++        buttonQualityPSNR.visibleProperty().bind(Bindings.not(qualityOnChange.selectedProperty()));
++
++        qualitySSIMType.getSelectionModel().selectedItemProperty().addListener((ob, ov, nv) -> {
++            if (nv == null) return;
++
++            if (qualityOnChange.isSelected()) {
++                CountQualitySSIM();
++            } else {
++                qualitySSIM.setText("");
++                qualityMSSIM.setText("");
++            }
++        });
++
++        qualityPSNRType.getSelectionModel().selectedItemProperty().addListener((ob, ov, nv) -> {
++            if (nv == null) return;
++
++            if (qualityOnChange.isSelected()) {
++                CountQuality();
++            } else {
++                qualityMAE.setText("");
++                qualityMSE.setText("");
++                qualityPSNR.setText("");
++                qualitySAE.setText("");
++            }
++        });
++
++        // Nastavení výchozího obrázku
++        process = new Process(FilePaths.defaultImage,FilePaths.watermarkImage,FilePaths.watermarkImageSmall);
++    }
++
++    public void ChangeImage() {
++        File file = Dialogs.openFile();
++        process = new Process(file.getAbsolutePath(),FilePaths.watermarkImage,FilePaths.watermarkImageSmall);
++        Reset();
++    }
++
++    public void Close() {
++        Stage stage = ((Stage) buttonSample.getScene().getWindow());
++        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
++    }
++
++    public void Reset() {
++        Dialogs.closeAllWindows();
++        buttonToYCbCr.setDisable(false);
++        buttonInverseToRGB.setDisable(false);
++        sampling.setDisable(false);
++        buttonSample.setDisable(false);
++        buttonInverseSample.setDisable(false);
++
++        buttonInverseTransform.setDisable(false);
++        transformType.setDisable(false);
++        transformBlock.setDisable(false);
++        buttonTransform.setDisable(false);
++
++        buttonQuantize.setDisable(false);
++        buttonInverseQuantize.setDisable(false);
++        quantizeQuality.setDisable(false);
++        quantizeQualityField.setDisable(false);
++
++        qualityPSNRType.setValue(null);
++        qualitySSIMType.setValue(null);
++        qualityMSE.setText("");
++        qualityMAE.setText("");
++        qualityPSNR.setText("");
++        qualitySAE.setText("");
++        qualitySSIM.setText("");
++        qualityMSSIM.setText("");
++    }
++
++    public void CloseWindows() {
++        Dialogs.closeImageWindows();
++    }
++
++    public void ShowOriginal() {
++        Dialogs.showImageInWindow(process.getOriginalImage(), "Original", true);
++    }
++
++    public void ShowRGBModified() {
++        Dialogs.showImageInWindow(process.getImageFromModifiedRGB(), "Modified", false);
++    }
++
++
++    public void ConvertToYCbCr() {
++        buttonToYCbCr.setDisable(lockControls);
++        process.convertRGBToYCbCr();
++
++        if (showSteps.isSelected()) {
++            Dialogs.showMultipleImageInWindow("Original", false, true,
++                                              new Pair<>(process.getOneColorImageFromYCbCr(process.getOriginalY()), "Y"),
++                                              new Pair<>(process.getOneColorImageFromYCbCr(process.getOriginalCb()), "Cb"),
++                                              new Pair<>(process.getOneColorImageFromYCbCr(process.getOriginalCr()), "Cr"));
++
++        }
++    }
++
++    public void ConvertToRGB() {
++        buttonInverseToRGB.setDisable(lockControls);
++        process.convertYCbCrToRGB();
++        qualitySSIMType.getSelectionModel().select(QualityType.RGB);
++        CountQuality();
++        if (showSteps.isSelected()) {
++            Dialogs.showMultipleImageInWindow("Modified", false, true,
++                                              new Pair<>(process.getOneColorImageFromRGB(process.getModifiedRed(), ColorType.RED, shadesOfGrey.isSelected()), "Red"),
++                                              new Pair<>(process.getOneColorImageFromRGB(process.getModifiedGreen(), ColorType.GREEN, shadesOfGrey.isSelected()), "Green"),
++                                              new Pair<>(process.getOneColorImageFromRGB(process.getModifiedBlue(), ColorType.BLUE, shadesOfGrey.isSelected()), "Blue"));
++        }
++    }
++
++    public void Sample() {
++        buttonSample.setDisable(lockControls);
++        sampling.setDisable(lockControls);
++        process.downSample(sampling.getValue());
++        showModifiedYCbCrStep("Sampling");
++    }
++
++    public void InverseSample() {
++        buttonInverseSample.setDisable(lockControls);
++        process.upSample(sampling.getValue());
++        showModifiedYCbCrStep("Inverse sampling");
++    }
++
++    public void Transform() {
++        transformType.setDisable(lockControls);
++        transformBlock.setDisable(lockControls);
++        buttonTransform.setDisable(lockControls);
++        process.transform(transformType.getSelectionModel().getSelectedItem(), transformBlock.getValue());
++        showModifiedYCbCrStep("Transform");
++    }
++
++    public void InverseTransform() {
++        buttonInverseTransform.setDisable(lockControls);
++        process.inverseTransform(transformType.getSelectionModel().getSelectedItem(), transformBlock.getValue());
++        showModifiedYCbCrStep("Inverse transform");
++    }
++
++    public void Quantize() {
++        buttonQuantize.setDisable(lockControls);
++        quantizeQuality.setDisable(lockControls);
++        quantizeQualityField.setDisable(lockControls);
++        transformBlock.setDisable(transformBlock.isDisabled() || lockControls);
++        process.quantize(quantizeQuality.getValue(), transformBlock.getValue());
++        showModifiedYCbCrStep("Quantize");
++    }
++
++    public void InverseQuantize() {
++        buttonInverseQuantize.setDisable(lockControls);
++        process.inverseQuantize(quantizeQuality.getValue(), transformBlock.getValue());
++        showModifiedYCbCrStep("Inverse quantize");
++    }
++
++    public void CountQuality() {
++        process.countQualityPSNR(qualityPSNRType.getSelectionModel().getSelectedItem(),
++                                 qualityMSE.textProperty(), qualityMAE.textProperty(),
++                                 qualityPSNR.textProperty(), qualitySAE.textProperty());
++    }
++
++    public void CountQualitySSIM() {
++        process.countQualitySSIM(qualitySSIMType.getSelectionModel().getSelectedItem(),
++                                 qualitySSIM.textProperty(), qualityMSSIM.textProperty());
++    }
++
++    // region Zobrazení barevných složek
++    public void ShowRedModified() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getModifiedRed(), ColorType.RED, shadesOfGrey.isSelected()), "Modified Red");
++    }
++
++    public void ShowRedOriginal() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getOriginalRed(), ColorType.RED, shadesOfGrey.isSelected()), "Original Red");
++    }
++
++    public void ShowGreenModified() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getModifiedGreen(), ColorType.GREEN, shadesOfGrey.isSelected()), "Modified Green");
++    }
++
++    public void ShowGreenOriginal() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getOriginalGreen(), ColorType.GREEN, shadesOfGrey.isSelected()), "Original Green");
++    }
++
++    public void ShowBlueModified() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getModifiedBlue(), ColorType.BLUE, shadesOfGrey.isSelected()), "Modified Blue");
++    }
++
++    public void ShowBlueOriginal() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromRGB(process.getOriginalBlue(), ColorType.BLUE, shadesOfGrey.isSelected()), "Original Blue");
++    }
++
++    public void ShowCbModified() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getModifiedCb()), "Modified Cb");
++    }
++
++    public void ShowCbOriginal() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getOriginalCb()), "Original Cb");
++    }
++
++    public void ShowCrModified() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getModifiedCr()), "Modified Cr");
++    }
++
++    public void ShowCrOriginal() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getOriginalCr()), "Original Cr");
++    }
++
++    public void ShowYModified() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getModifiedY()), "Modified Y");
++    }
++
++    public void ShowYOriginal() {
++        Dialogs.showImageInWindow(process.getOneColorImageFromYCbCr(process.getOriginalY()), "Original Y");
++    }
++    // endregion
++
++    private static UnaryOperator<TextFormatter.Change> filter = change -> {
++        String text = change.getText();
++        if (text.matches("[0-9,]*")) return change;
++        return null;
++    };
++
++    private void showModifiedYCbCrStep(String title) {
++        if (showSteps.isSelected()) {
++            Dialogs.showMultipleImageInWindow(title, false, true,
++            new Pair<>(process.getOneColorImageFromYCbCr(process.getModifiedY()), "Y"),
++            new Pair<>(process.getOneColorImageFromYCbCr(process.getModifiedCb()), "Cb"),
++            new Pair<>(process.getOneColorImageFromYCbCr(process.getModifiedCr()), "Cr"));
++
++        }
++    }
++    public void LSBWatermark() throws IOException{
++        // process.LSBApply(WatermarkComponent,FilePaths.watermarkImage,8); 
++        // watermarkLSB.setDisable(lockControls);
++        // watermarkLSB.setDisable(lockControls);
++        // buttonWatermark.setDisable(lockControls);
++        
++        process.LSBApply(watermarkLSB.getSelectionModel().getSelectedItem(),bitDepth.getValue());
++        showModifiedYCbCrStep("Watermarked");
++    }
++    
++    public void LSBWatermarkDecode(){
++        process.LSBDecode(watermarkLSB.getSelectionModel().getSelectedItem(),bitDepth.getValue());
++    }
++    
++    public void DCTWatermark(){
++        String coef1 = coeficient1.getSelectionModel().getSelectedItem().toString();
++        String coef2 = coeficient2.getSelectionModel().getSelectedItem().toString();
++        process.DCTApply(watermarkLSB.getSelectionModel().getSelectedItem(),depthDCT.getValue(),coef1,coef2);
++    }
++    public void DCTExtraction(){
++    String coef1 = coeficient1.getSelectionModel().getSelectedItem().toString();
++    String coef2 = coeficient2.getSelectionModel().getSelectedItem().toString();
++        process.DCTDecode(watermarkLSB.getSelectionModel().getSelectedItem(),depthDCT.getValue(),coef1,coef2);
++    }
++
++
++    public void JPEGCompress() throws IOException{
++        process.CompressJPEG(watermarkLSB.getSelectionModel().getSelectedItem());
++    }
++
++    public void CropImage(){
++        process.CropImage(watermarkLSB.getSelectionModel().getSelectedItem());
++    }
++
++    public void ImageFlip(){
++        process.FlipImage(watermarkLSB.getSelectionModel().getSelectedItem());
++    }
++}
++
+diff --git a/src/main/java/Jpeg/ColorTransform.java b/src/main/java/Jpeg/ColorTransform.java
+index bd0ad55..ae451bb 100644
+--- a/src/main/java/Jpeg/ColorTransform.java
++++ b/src/main/java/Jpeg/ColorTransform.java
+@@ -1,73 +1,73 @@
+-package Jpeg;
+-
+-import Jama.Matrix;
+-
+-public class ColorTransform {
+-
+-    /**
+-     * Metoda, která provede transformaci RGB do YCbCr.
+-     *
+-     * @param red   height x width
+-     * @param green height x width
+-     * @param blue  height x width
+-     * @return Matrix [Y, Cb, Cr]
+-     */
+-    public static Matrix[] convertOriginalRGBtoYcBcR(int[][] red, int[][] green, int[][] blue) {
+-        int height = red.length;
+-        int width = red[0].length;
+-
+-        Matrix convertedY = new Matrix(height, width);
+-        Matrix convertedCb = new Matrix(height, width);
+-        Matrix convertedCr = new Matrix(height, width);
+-
+-        for (int h = 0; h < height; h++) {
+-            for (int w = 0; w < width; w++) {
+-                convertedY.set(h, w, 0.257 * red[h][w] + 0.504 * green[h][w] + 0.098 * blue[h][w] + 16);
+-                convertedCb.set(h, w, -0.148 * red[h][w] - 0.291 * green[h][w] + 0.439 * blue[h][w] + 128);
+-                convertedCr.set(h, w, 0.439 * red[h][w] - 0.368 * green[h][w] - 0.071 * blue[h][w] + 128);
+-            }
+-        }
+-
+-        return new Matrix[]{convertedY, convertedCb, convertedCr};
+-    }
+-
+-    /**
+-     * Metoda, která provede transformaci YCbCr do RGB.
+-     *
+-     * @param Y  Matrix
+-     * @param Cb Matrix
+-     * @param Cr Matrix
+-     * @return 3D pole intů, v pořadí [R, G, B]
+-     */
+-    public static int[][][] convertModifiedYcBcRtoRGB(Matrix Y, Matrix Cb, Matrix Cr) {
+-        int height = Y.getRowDimension();
+-        int width = Y.getColumnDimension();
+-
+-        int[][] convertedRed = new int[height][width];
+-        int[][] convertedGreen = new int[height][width];
+-        int[][] convertedBlue = new int[height][width];
+-
+-        for (int h = 0; h < height; h++) {
+-            for (int w = 0; w < width; w++) {
+-                convertedRed[h][w] = checkValue(1.164 * (Y.get(h, w) - 16) + 1.596 * (Cr.get(h, w) - 128));
+-                convertedGreen[h][w] = checkValue(1.164 * (Y.get(h, w) - 16) - 0.813 * (Cr.get(h, w) - 128) - 0.391 * (Cb.get(h, w) - 128));
+-                convertedBlue[h][w] = checkValue(1.164 * (Y.get(h, w) - 16) + 2.018 * (Cb.get(h, w) - 128));
+-            }
+-        }
+-        return new int[][][]{convertedRed, convertedGreen, convertedBlue};
+-    }
+-
+-    /**
+-     * Metoda, která zaokrouhlí double na int a také
+-     * zajistí, že hodnota bude v rozsahu 0-255.
+-     *
+-     * @param value Hodnota, která se má zaokrouhlit.
+-     * @return Zaokrouhlená hodnota v rozmezí 0-255.
+-     */
+-    public static int checkValue(double value) {
+-        int w = (int) Math.round(value);
+-        if (w < 0) w = 0;
+-        if (w > 255) w = 255;
+-        return w;
+-    }
+-}
++package Jpeg;
++
++import Jama.Matrix;
++
++public class ColorTransform {
++
++    /**
++     * Metoda, která provede transformaci RGB do YCbCr.
++     *
++     * @param red   height x width
++     * @param green height x width
++     * @param blue  height x width
++     * @return Matrix [Y, Cb, Cr]
++     */
++    public static Matrix[] convertOriginalRGBtoYcBcR(int[][] red, int[][] green, int[][] blue) {
++        int height = red.length;
++        int width = red[0].length;
++
++        Matrix convertedY = new Matrix(height, width);
++        Matrix convertedCb = new Matrix(height, width);
++        Matrix convertedCr = new Matrix(height, width);
++
++        for (int h = 0; h < height; h++) {
++            for (int w = 0; w < width; w++) {
++                convertedY.set(h, w, 0.257 * red[h][w] + 0.504 * green[h][w] + 0.098 * blue[h][w] + 16);
++                convertedCb.set(h, w, -0.148 * red[h][w] - 0.291 * green[h][w] + 0.439 * blue[h][w] + 128);
++                convertedCr.set(h, w, 0.439 * red[h][w] - 0.368 * green[h][w] - 0.071 * blue[h][w] + 128);
++            }
++        }
++
++        return new Matrix[]{convertedY, convertedCb, convertedCr};
++    }
++
++    /**
++     * Metoda, která provede transformaci YCbCr do RGB.
++     *
++     * @param Y  Matrix
++     * @param Cb Matrix
++     * @param Cr Matrix
++     * @return 3D pole intů, v pořadí [R, G, B]
++     */
++    public static int[][][] convertModifiedYcBcRtoRGB(Matrix Y, Matrix Cb, Matrix Cr) {
++        int height = Y.getRowDimension();
++        int width = Y.getColumnDimension();
++
++        int[][] convertedRed = new int[height][width];
++        int[][] convertedGreen = new int[height][width];
++        int[][] convertedBlue = new int[height][width];
++
++        for (int h = 0; h < height; h++) {
++            for (int w = 0; w < width; w++) {
++                convertedRed[h][w] = checkValue(1.164 * (Y.get(h, w) - 16) + 1.596 * (Cr.get(h, w) - 128));
++                convertedGreen[h][w] = checkValue(1.164 * (Y.get(h, w) - 16) - 0.813 * (Cr.get(h, w) - 128) - 0.391 * (Cb.get(h, w) - 128));
++                convertedBlue[h][w] = checkValue(1.164 * (Y.get(h, w) - 16) + 2.018 * (Cb.get(h, w) - 128));
++            }
++        }
++        return new int[][][]{convertedRed, convertedGreen, convertedBlue};
++    }
++
++    /**
++     * Metoda, která zaokrouhlí double na int a také
++     * zajistí, že hodnota bude v rozsahu 0-255.
++     *
++     * @param value Hodnota, která se má zaokrouhlit.
++     * @return Zaokrouhlená hodnota v rozmezí 0-255.
++     */
++    public static int checkValue(double value) {
++        int w = (int) Math.round(value);
++        if (w < 0) w = 0;
++        if (w > 255) w = 255;
++        return w;
++    }
++}
+diff --git a/src/main/java/Jpeg/Process.java b/src/main/java/Jpeg/Process.java
+index 36a6137..da36c19 100644
+--- a/src/main/java/Jpeg/Process.java
++++ b/src/main/java/Jpeg/Process.java
+@@ -1,426 +1,623 @@
+-package Jpeg;
+-
+-import Enums.ColorType;
+-import Enums.QualityType;
+-import Enums.SamplingType;
+-import Enums.TransformType;
+-import Jama.Matrix;
+-import javafx.beans.property.StringProperty;
+-import Graphics.Dialogs;
+-
+-import java.awt.*;
+-import java.awt.image.BufferedImage;
+-
+-import static Jpeg.ColorTransform.checkValue;
+-
+-/**
+- * Třída, která bude obsahovat všechnu práci s obrázkem.
+- * Pro zjednodušení budou všechny proměnné veřejné. Nejedná se tak o běžnou praxi, ale usnadnění pro cvičení.
+- */
+-public class Process {
+-    private static final int DECIMALS = 4;
+-
+-    private BufferedImage originalImage;
+-
+-    private int[][] originalRed, modifiedRed;
+-    private int[][] originalGreen, modifiedGreen;
+-    private int[][] originalBlue, modifiedBlue;
+-
+-    private Matrix originalY, modifiedY;
+-    private Matrix originalCb, modifiedCb;
+-    private Matrix originalCr, modifiedCr;
+-
+-    private int imageHeight;
+-    private int imageWidth;
+-
+-    public Process(String pathToIImage) {
+-        init(Dialogs.loadImageFromPath(pathToIImage));
+-    }
+-
+-    private void init(BufferedImage originalImage) {
+-        this.originalImage = originalImage;
+-
+-        imageHeight = originalImage.getHeight();
+-        imageWidth = originalImage.getWidth();
+-
+-        initializeMatrices(); // Inicializace matic
+-        setOriginalRGB(); // Nastavení původních hodnot RGB
+-    }
+-
+-    // Inicializace matic
+-    private void initializeMatrices() {
+-        originalRed = new int[imageHeight][imageWidth];
+-        originalGreen = new int[imageHeight][imageWidth];
+-        originalBlue = new int[imageHeight][imageWidth];
+-
+-        originalY = new Matrix(imageHeight, imageWidth);
+-        originalCb = new Matrix(imageHeight, imageWidth);
+-        originalCr = new Matrix(imageHeight, imageWidth);
+-
+-        modifiedRed = new int[imageHeight][imageWidth];
+-        modifiedGreen = new int[imageHeight][imageWidth];
+-        modifiedBlue = new int[imageHeight][imageWidth];
+-
+-        modifiedY = new Matrix(imageHeight, imageWidth);
+-        modifiedCb = new Matrix(imageHeight, imageWidth);
+-        modifiedCr = new Matrix(imageHeight, imageWidth);
+-    }
+-
+-    // Nastavení barevných složek do barevných polí z původního obrázku
+-    private void setOriginalRGB() {
+-        for (int h = 0; h < imageHeight; h++) {
+-            for (int w = 0; w < imageWidth; w++) {
+-                Color color = new Color(originalImage.getRGB(w, h));
+-                originalRed[h][w] = color.getRed();
+-                originalGreen[h][w] = color.getGreen();
+-                originalBlue[h][w] = color.getBlue();
+-            }
+-        }
+-//        //Nastavení barevných složek i do modifikovaných hodnot, není nutné
+-//        modifiedRed = originalRed.clone();
+-//        modifiedGreen = originalGreen.clone();
+-//        modifiedBlue = originalBlue.clone();
+-    }
+-
+-    /**
+-     * Získání finálního obrázku z modifikovaných barevných složek RGB
+-     *
+-     * @return Finální obrázek
+-     */
+-    public BufferedImage getImageFromModifiedRGB() {
+-        BufferedImage bfImage = new BufferedImage(
+-                imageWidth, imageHeight,
+-                BufferedImage.TYPE_INT_RGB);
+-
+-        for (int h = 0; h < imageHeight; h++) {
+-            for (int w = 0; w < imageWidth; w++) {
+-                bfImage.setRGB(w, h,
+-                               (new Color(modifiedRed[h][w],
+-                                          modifiedGreen[h][w],
+-                                          modifiedBlue[h][w])).getRGB());
+-            }
+-        }
+-        return bfImage;
+-    }
+-
+-    /**
+-     * Metoda pro převod obrázku z RGB do YCbCr.
+-     * Hodnoty se uloží do originálních i modifikovaných matic.
+-     */
+-    public void convertRGBToYCbCr() {
+-        Matrix[] colors = ColorTransform.convertOriginalRGBtoYcBcR(originalRed, originalGreen, originalBlue);
+-        originalY = colors[0];
+-        originalCb = colors[1];
+-        originalCr = colors[2];
+-
+-        modifiedY = originalY.copy();
+-        modifiedCb = originalCb.copy();
+-        modifiedCr = originalCr.copy();
+-    }
+-
+-    /**
+-     * Metoda pro převod obrázku z YCbCr do RGB
+-     */
+-    public void convertYCbCrToRGB() {
+-        var colors = ColorTransform.convertModifiedYcBcRtoRGB(modifiedY, modifiedCb, modifiedCr);
+-        modifiedRed = colors[0];
+-        modifiedGreen = colors[1];
+-        modifiedBlue = colors[2];
+-    }
+-
+-    public void downSample(SamplingType samplingType) {
+-        modifiedCb = Sampling.sampleDown(modifiedCb, samplingType);
+-        modifiedCr = Sampling.sampleDown(modifiedCr, samplingType);
+-    }
+-
+-    public void upSample(SamplingType samplingType) {
+-        modifiedCb = Sampling.sampleUp(modifiedCb, samplingType);
+-        modifiedCr = Sampling.sampleUp(modifiedCr, samplingType);
+-    }
+-
+-    public void transform(TransformType transformType, int blockSize) {
+-        modifiedY = Transform.transform(modifiedY, transformType, blockSize);
+-        modifiedCb = Transform.transform(modifiedCb, transformType, blockSize);
+-        modifiedCr = Transform.transform(modifiedCr, transformType, blockSize);
+-    }
+-
+-    public void inverseTransform(TransformType transformType, int blockSize) {
+-        modifiedY = Transform.inverseTransform(modifiedY, transformType, blockSize);
+-        modifiedCb = Transform.inverseTransform(modifiedCb, transformType, blockSize);
+-        modifiedCr = Transform.inverseTransform(modifiedCr, transformType, blockSize);
+-    }
+-
+-    public void quantize(double quality, int blockSize) {
+-        modifiedY = Quantization.quantize(modifiedY, blockSize, quality, true);
+-        modifiedCb = Quantization.quantize(modifiedCb, blockSize, quality, false);
+-        modifiedCr = Quantization.quantize(modifiedCr, blockSize, quality, false);
+-    }
+-
+-    public void inverseQuantize(double quality, int blockSize) {
+-        modifiedY = Quantization.inverseQuantize(modifiedY, blockSize, quality, true);
+-        modifiedCb = Quantization.inverseQuantize(modifiedCb, blockSize, quality, false);
+-        modifiedCr = Quantization.inverseQuantize(modifiedCr, blockSize, quality, false);
+-    }
+-
+-    /**
+-     * Metoda pro získání jednobarevného obrázku z 2D polí pro jednu barvu
+-     *
+-     * @param color     pole pro jednu barvu
+-     * @param type      typ barvy, pro zjištění, do které barevné složky se má zapsat
+-     * @param greyScale pokud je true, tak se vytvoří obrázek v odstínech šedi
+-     * @return Obrázek vytvořený z jednobarevného pole
+-     */
+-    public BufferedImage getOneColorImageFromRGB(int[][] color, ColorType type, boolean greyScale) {
+-        int height = color.length, width = color[0].length;
+-
+-        BufferedImage bfImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+-        for (int h = 0; h < height; h++) {
+-            for (int w = 0; w < width; w++) {
+-                int pixel = color[h][w];
+-
+-                // Pro nastavení hodnoty v barevné složce se porovnává, jaké barevné pole bylo zadané, případně pokud
+-                // se jedná o šedotónový obrázek, tak se nastaví hodnota do všech barevných složek
+-                bfImage.setRGB(w, h,
+-                               (new Color(((type == ColorType.RED || greyScale) ? pixel : 0),
+-                                          ((type == ColorType.GREEN || greyScale) ? pixel : 0),
+-                                          ((type == ColorType.BLUE || greyScale) ? pixel : 0))).getRGB());
+-            }
+-        }
+-        return bfImage;
+-    }
+-
+-    /**
+-     * Metoda pro získání jednobarevného obrázku z matice.
+-     * Primárně určeno pro YCbCr složky.
+-     *
+-     * @param color Barevná matice; Y, Cb nebo Cr.
+-     * @return Obrázek vytvořený z jednobarevné matice
+-     */
+-    public BufferedImage getOneColorImageFromYCbCr(Matrix color) {
+-        int height = color.getRowDimension(), width = color.getColumnDimension();
+-
+-        BufferedImage bfImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+-        for (int h = 0; h < height; h++) {
+-            for (int w = 0; w < width; w++) {
+-                int pixel = checkValue(color.get(h, w)); // Používá metodu z ColorTransform, která zajistí, že hodnota bude v rozsahu 0-255.
+-                bfImage.setRGB(w, h, (new Color(pixel, pixel, pixel)).getRGB());
+-            }
+-        }
+-        return bfImage;
+-    }
+-
+-    /**
+-     * Metoda pro zjištění kvality obrázku. Vypočítá se MSE, MAE a PSNR na základě zadaného typu pro zobrazení.
+-     *
+-     * @param type Složka pro kterou se má vypočítat kvalita
+-     * @param mse  Výstupní property z pole pro zapsání hodnoty MSE
+-     * @param mae  Výstupní property z pole pro zapsání hodnoty MAE
+-     * @param psnr Výstupní property z pole pro zapsání hodnoty PSNR
+-     * @param sae  Výstupní property z pole pro zapsání hodnoty SAE
+-     */
+-    public void countQualityPSNR(QualityType type, StringProperty mse, StringProperty mae, StringProperty psnr, StringProperty sae) {
+-        int[][] original = null, modified = null;
+-        Matrix originalM = null, modifiedM = null;
+-        double qualityMSE = 0.0;
+-        double qualityMAE = 0.0;
+-        double qualitySAE = 0.0;
+-        double qualityPSNR;
+-
+-        if (type == QualityType.Red || type == QualityType.Green || type == QualityType.Blue) {
+-            switch (type) {
+-                case Red:
+-                    original = originalRed;
+-                    modified = modifiedRed;
+-                    break;
+-                case Green:
+-                    original = originalGreen;
+-                    modified = modifiedGreen;
+-                    break;
+-                case Blue:
+-                    original = originalBlue;
+-                    modified = modifiedBlue;
+-                    break;
+-            }
+-            qualityMSE = Quality.countMSE(convertIntToDouble(original), convertIntToDouble(modified));
+-            qualityMAE = Quality.countMAE(convertIntToDouble(original), convertIntToDouble(modified));
+-            qualitySAE = Quality.countSAE(convertIntToDouble(original), convertIntToDouble(modified));
+-
+-        } else if (type == QualityType.Y || type == QualityType.Cb || type == QualityType.Cr) {
+-            switch (type) {
+-                case Y:
+-                    originalM = originalY;
+-                    modifiedM = modifiedY;
+-                    break;
+-                case Cb:
+-                    originalM = originalCb;
+-                    modifiedM = modifiedCb;
+-                    break;
+-                case Cr:
+-                    originalM = originalCr;
+-                    modifiedM = modifiedCr;
+-                    break;
+-            }
+-            qualityMSE = Quality.countMSE(originalM.getArray(), modifiedM.getArray());
+-            qualityMAE = Quality.countMAE(originalM.getArray(), modifiedM.getArray());
+-            qualitySAE = Quality.countSAE(originalM.getArray(), modifiedM.getArray());
+-
+-        } else if (type == QualityType.RGB) {
+-            double[][] originalRed = convertIntToDouble(this.originalRed);
+-            double[][] originalGreen = convertIntToDouble(this.originalGreen);
+-            double[][] originalBlue = convertIntToDouble(this.originalBlue);
+-            double[][] modifiedRed = convertIntToDouble(this.modifiedRed);
+-            double[][] modifiedGreen = convertIntToDouble(this.modifiedGreen);
+-            double[][] modifiedBlue = convertIntToDouble(this.modifiedBlue);
+-
+-            qualityMSE += Quality.countMSE(originalRed, modifiedRed);
+-            qualityMSE += Quality.countMSE(originalGreen, modifiedGreen);
+-            qualityMSE += Quality.countMSE(originalBlue, modifiedBlue);
+-            qualityMSE /= 3;
+-
+-            qualityMAE += Quality.countMAE(originalRed, modifiedRed);
+-            qualityMAE += Quality.countMAE(originalGreen, modifiedGreen);
+-            qualityMAE += Quality.countMAE(originalBlue, modifiedBlue);
+-            qualityMAE /= 3;
+-
+-            qualitySAE += Quality.countSAE(originalRed, modifiedRed);
+-            qualitySAE += Quality.countSAE(originalGreen, modifiedGreen);
+-            qualitySAE += Quality.countSAE(originalBlue, modifiedBlue);
+-            qualitySAE /= 3;
+-
+-        } else if (type == QualityType.YCbCr) {
+-            qualityMSE += Quality.countMSE(originalY.getArray(), modifiedY.getArray());
+-            qualityMSE += Quality.countMSE(originalCb.getArray(), modifiedCb.getArray());
+-            qualityMSE += Quality.countMSE(originalCr.getArray(), modifiedCr.getArray());
+-            qualityMSE /= 3;
+-
+-            qualityMAE += Quality.countMAE(originalY.getArray(), modifiedY.getArray());
+-            qualityMAE += Quality.countMAE(originalCb.getArray(), modifiedCb.getArray());
+-            qualityMAE += Quality.countMAE(originalCr.getArray(), modifiedCr.getArray());
+-            qualityMAE /= 3;
+-
+-            qualitySAE += Quality.countSAE(originalY.getArray(), modifiedY.getArray());
+-            qualitySAE += Quality.countSAE(originalCb.getArray(), modifiedCb.getArray());
+-            qualitySAE += Quality.countSAE(originalCr.getArray(), modifiedCr.getArray());
+-            qualitySAE /= 3;
+-        }
+-
+-        qualityPSNR = Quality.countPSNR(qualityMSE);
+-
+-        mse.set(formatDouble(qualityMSE));
+-        mae.set(formatDouble(qualityMAE));
+-        psnr.set(formatDouble(qualityPSNR));
+-        sae.set(formatDouble(qualitySAE));
+-    }
+-
+-    /**
+-     * Metoda pro zjištění kvality obrázku. Vypočítá se SSIM a MSSIM na základě zadaného typu pro zobrazení.
+-     *
+-     * @param type  Složka pro kterou se má vypočítat kvalita
+-     * @param ssim  Výstupní pole pro zapsání hodnoty SSIM
+-     * @param mssim Výstupní pole pro zapsání hodnoty MSSIM
+-     */
+-    public void countQualitySSIM(QualityType type, StringProperty ssim, StringProperty mssim) {
+-        Matrix originalM = null, modifiedM = null;
+-        switch (type) {
+-            case Y:
+-                originalM = originalY;
+-                modifiedM = modifiedY;
+-                break;
+-            case Cb:
+-                originalM = originalCb;
+-                modifiedM = modifiedCb;
+-                break;
+-            case Cr:
+-                originalM = originalCr;
+-                modifiedM = modifiedCr;
+-                break;
+-        }
+-
+-        ssim.set(formatDouble(Quality.countSSIM(originalM, modifiedM)));
+-        mssim.set(formatDouble(Quality.countMSSIM(originalM, modifiedM)));
+-    }
+-
+-    //#region Getters
+-    public BufferedImage getOriginalImage() {
+-        return originalImage;
+-    }
+-
+-    public int[][] getOriginalRed() {
+-        return originalRed;
+-    }
+-
+-    public int[][] getModifiedRed() {
+-        return modifiedRed;
+-    }
+-
+-    public int[][] getOriginalGreen() {
+-        return originalGreen;
+-    }
+-
+-    public int[][] getModifiedGreen() {
+-        return modifiedGreen;
+-    }
+-
+-    public int[][] getOriginalBlue() {
+-        return originalBlue;
+-    }
+-
+-    public int[][] getModifiedBlue() {
+-        return modifiedBlue;
+-    }
+-
+-    public Matrix getOriginalY() {
+-        return originalY;
+-    }
+-
+-    public Matrix getModifiedY() {
+-        return modifiedY;
+-    }
+-
+-    public Matrix getOriginalCb() {
+-        return originalCb;
+-    }
+-
+-    public Matrix getModifiedCb() {
+-        return modifiedCb;
+-    }
+-
+-    public Matrix getOriginalCr() {
+-        return originalCr;
+-    }
+-
+-    public Matrix getModifiedCr() {
+-        return modifiedCr;
+-    }
+-
+-    public int getImageHeight() {
+-        return imageHeight;
+-    }
+-
+-    public int getImageWidth() {
+-        return imageWidth;
+-    }
+-    //#endregion
+-
+-    // Metoda pro převod pole int [][] na pole double [][]
+-    public static double[][] convertIntToDouble(int[][] intArray) {
+-        double[][] doubleArray = new double[intArray.length][intArray[0].length];
+-
+-        for (int i = 0; i < intArray.length; i++) {
+-            for (int j = 0; j < intArray[0].length; j++) {
+-                doubleArray[i][j] = (double) intArray[i][j];
+-            }
+-        }
+-
+-        return doubleArray;
+-    }
+-
+-    // Metoda pro formátování double na požadovaný počet desetinných míst
+-    private static String formatDouble(double value) {
+-        if (Double.isInfinite(value)) {
+-            return String.valueOf(value);
+-        } else {
+-            return String.format(String.format("%%.%df", DECIMALS), value);
+-        }
+-    }
+-}
++package Jpeg;
++
++import Enums.ColorType;
++import Enums.QualityType;
++import Enums.SamplingType;
++import Enums.TransformType;
++import Enums.WatermarkComponent;
++import Jama.Matrix;
++import javafx.beans.property.StringProperty;
++import Graphics.Dialogs;
++
++import java.awt.*;
++import java.awt.image.BufferedImage;
++import java.io.IOException;
++import java.lang.reflect.Array;
++
++import javax.tools.Diagnostic;
++
++import static Jpeg.ColorTransform.checkValue;
++
++/**
++ * Třída, která bude obsahovat všechnu práci s obrázkem.
++ * Pro zjednodušení budou všechny proměnné veřejné. Nejedná se tak o běžnou praxi, ale usnadnění pro cvičení.
++ */
++public class Process {
++    private static final int DECIMALS = 4;
++
++    private BufferedImage originalImage;
++    private BufferedImage originalWatermark;
++    private BufferedImage originalWatermakSmall;
++
++    private int[][] originalRed, modifiedRed;
++    private int[][] originalGreen, modifiedGreen;
++    private int[][] originalBlue, modifiedBlue;
++
++    private Matrix originalY, modifiedY;
++    private Matrix originalCb, modifiedCb;
++    private Matrix originalCr, modifiedCr;
++
++    private int imageHeight;
++    private int imageWidth;
++
++
++    public Process(String pathToIImage, String pathToWatermark, String pathToWatermarkSmall) {
++        init(Dialogs.loadImageFromPath(pathToIImage),
++        Dialogs.loadImageFromPath(pathToWatermark),
++        Dialogs.loadImageFromPath(pathToWatermarkSmall));
++    }
++
++    private void init(BufferedImage originalImage, BufferedImage originalWatermark,BufferedImage originalWatermarkSmall) {
++        this.originalImage = originalImage;
++        this.originalWatermark = originalWatermark;
++        this.originalWatermakSmall = originalWatermarkSmall;
++
++        imageHeight = originalImage.getHeight();
++        imageWidth = originalImage.getWidth();
++
++        initializeMatrices(); // Inicializace matic
++        setOriginalRGB(); // Nastavení původních hodnot RGB
++    }
++
++    // Inicializace matic
++    private void initializeMatrices() {
++        originalRed = new int[imageHeight][imageWidth];
++        originalGreen = new int[imageHeight][imageWidth];
++        originalBlue = new int[imageHeight][imageWidth];
++
++        originalY = new Matrix(imageHeight, imageWidth);
++        originalCb = new Matrix(imageHeight, imageWidth);
++        originalCr = new Matrix(imageHeight, imageWidth);
++
++        modifiedRed = new int[imageHeight][imageWidth];
++        modifiedGreen = new int[imageHeight][imageWidth];
++        modifiedBlue = new int[imageHeight][imageWidth];
++
++        modifiedY = new Matrix(imageHeight, imageWidth);
++        modifiedCb = new Matrix(imageHeight, imageWidth);
++        modifiedCr = new Matrix(imageHeight, imageWidth);
++    }
++
++    // Nastavení barevných složek do barevných polí z původního obrázku
++    private void setOriginalRGB() {
++        for (int h = 0; h < imageHeight; h++) {
++            for (int w = 0; w < imageWidth; w++) {
++                Color color = new Color(originalImage.getRGB(w, h));
++                originalRed[h][w] = color.getRed();
++                originalGreen[h][w] = color.getGreen();
++                originalBlue[h][w] = color.getBlue();
++            }
++        }
++//        //Nastavení barevných složek i do modifikovaných hodnot, není nutné
++//        modifiedRed = originalRed.clone();
++//        modifiedGreen = originalGreen.clone();
++//        modifiedBlue = originalBlue.clone();
++    }
++
++    /**
++     * Získání finálního obrázku z modifikovaných barevných složek RGB
++     *
++     * @return Finální obrázek
++     */
++    public BufferedImage getImageFromModifiedRGB() {
++        BufferedImage bfImage = new BufferedImage(
++                imageWidth, imageHeight,
++                BufferedImage.TYPE_INT_RGB);
++
++        for (int h = 0; h < imageHeight; h++) {
++            for (int w = 0; w < imageWidth; w++) {
++                bfImage.setRGB(w, h,
++                               (new Color(modifiedRed[h][w],
++                                          modifiedGreen[h][w],
++                                          modifiedBlue[h][w])).getRGB());
++            }
++        }
++        return bfImage;
++    }
++
++    /**
++     * Metoda pro převod obrázku z RGB do YCbCr.
++     * Hodnoty se uloží do originálních i modifikovaných matic.
++     */
++    public void convertRGBToYCbCr() {
++        Matrix[] colors = ColorTransform.convertOriginalRGBtoYcBcR(originalRed, originalGreen, originalBlue);
++        originalY = colors[0];
++        originalCb = colors[1];
++        originalCr = colors[2];
++
++        modifiedY = originalY.copy();
++        modifiedCb = originalCb.copy();
++        modifiedCr = originalCr.copy();
++    }
++
++    /**
++     * Metoda pro převod obrázku z YCbCr do RGB
++     */
++    public void convertYCbCrToRGB() {
++        var colors = ColorTransform.convertModifiedYcBcRtoRGB(modifiedY, modifiedCb, modifiedCr);
++        modifiedRed = colors[0];
++        modifiedGreen = colors[1];
++        modifiedBlue = colors[2];
++    }
++
++    public void downSample(SamplingType samplingType) {
++        modifiedCb = Sampling.sampleDown(modifiedCb, samplingType);
++        modifiedCr = Sampling.sampleDown(modifiedCr, samplingType);
++    }
++
++    public void upSample(SamplingType samplingType) {
++        modifiedCb = Sampling.sampleUp(modifiedCb, samplingType);
++        modifiedCr = Sampling.sampleUp(modifiedCr, samplingType);
++    }
++
++    public void transform(TransformType transformType, int blockSize) {
++        modifiedY = Transform.transform(modifiedY, transformType, blockSize);
++        modifiedCb = Transform.transform(modifiedCb, transformType, blockSize);
++        modifiedCr = Transform.transform(modifiedCr, transformType, blockSize);
++    }
++
++    public void inverseTransform(TransformType transformType, int blockSize) {
++        modifiedY = Transform.inverseTransform(modifiedY, transformType, blockSize);
++        modifiedCb = Transform.inverseTransform(modifiedCb, transformType, blockSize);
++        modifiedCr = Transform.inverseTransform(modifiedCr, transformType, blockSize);
++    }
++
++    public void quantize(double quality, int blockSize) {
++        modifiedY = Quantization.quantize(modifiedY, blockSize, quality, true);
++        modifiedCb = Quantization.quantize(modifiedCb, blockSize, quality, false);
++        modifiedCr = Quantization.quantize(modifiedCr, blockSize, quality, false);
++    }
++
++    public void inverseQuantize(double quality, int blockSize) {
++        modifiedY = Quantization.inverseQuantize(modifiedY, blockSize, quality, true);
++        modifiedCb = Quantization.inverseQuantize(modifiedCb, blockSize, quality, false);
++        modifiedCr = Quantization.inverseQuantize(modifiedCr, blockSize, quality, false);
++    }
++
++    /**
++     * Metoda pro získání jednobarevného obrázku z 2D polí pro jednu barvu
++     *
++     * @param color     pole pro jednu barvu
++     * @param type      typ barvy, pro zjištění, do které barevné složky se má zapsat
++     * @param greyScale pokud je true, tak se vytvoří obrázek v odstínech šedi
++     * @return Obrázek vytvořený z jednobarevného pole
++     */
++    public BufferedImage getOneColorImageFromRGB(int[][] color, ColorType type, boolean greyScale) {
++        int height = color.length, width = color[0].length;
++
++        BufferedImage bfImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
++        for (int h = 0; h < height; h++) {
++            for (int w = 0; w < width; w++) {
++                int pixel = color[h][w];
++
++                // Pro nastavení hodnoty v barevné složce se porovnává, jaké barevné pole bylo zadané, případně pokud
++                // se jedná o šedotónový obrázek, tak se nastaví hodnota do všech barevných složek
++                bfImage.setRGB(w, h,
++                               (new Color(((type == ColorType.RED || greyScale) ? pixel : 0),
++                                          ((type == ColorType.GREEN || greyScale) ? pixel : 0),
++                                          ((type == ColorType.BLUE || greyScale) ? pixel : 0))).getRGB());
++            }
++        }
++        return bfImage;
++    }
++
++    /**
++     * Metoda pro získání jednobarevného obrázku z matice.
++     * Primárně určeno pro YCbCr složky.
++     *
++     * @param color Barevná matice; Y, Cb nebo Cr.
++     * @return Obrázek vytvořený z jednobarevné matice
++     */
++    public BufferedImage getOneColorImageFromYCbCr(Matrix color) {
++        int height = color.getRowDimension(), width = color.getColumnDimension();
++
++        BufferedImage bfImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
++        for (int h = 0; h < height; h++) {
++            for (int w = 0; w < width; w++) {
++                int pixel = checkValue(color.get(h, w)); // Používá metodu z ColorTransform, která zajistí, že hodnota bude v rozsahu 0-255.
++                bfImage.setRGB(w, h, (new Color(pixel, pixel, pixel)).getRGB());
++            }
++        }
++        return bfImage;
++    }
++
++    /**
++     * Metoda pro zjištění kvality obrázku. Vypočítá se MSE, MAE a PSNR na základě zadaného typu pro zobrazení.
++     *
++     * @param type Složka pro kterou se má vypočítat kvalita
++     * @param mse  Výstupní property z pole pro zapsání hodnoty MSE
++     * @param mae  Výstupní property z pole pro zapsání hodnoty MAE
++     * @param psnr Výstupní property z pole pro zapsání hodnoty PSNR
++     * @param sae  Výstupní property z pole pro zapsání hodnoty SAE
++     */
++    public void countQualityPSNR(QualityType type, StringProperty mse, StringProperty mae, StringProperty psnr, StringProperty sae) {
++        int[][] original = null, modified = null;
++        Matrix originalM = null, modifiedM = null;
++        double qualityMSE = 0.0;
++        double qualityMAE = 0.0;
++        double qualitySAE = 0.0;
++        double qualityPSNR;
++
++        if (type == QualityType.Red || type == QualityType.Green || type == QualityType.Blue) {
++            switch (type) {
++                case Red:
++                    original = originalRed;
++                    modified = modifiedRed;
++                    break;
++                case Green:
++                    original = originalGreen;
++                    modified = modifiedGreen;
++                    break;
++                case Blue:
++                    original = originalBlue;
++                    modified = modifiedBlue;
++                    break;
++            }
++            qualityMSE = Quality.countMSE(convertIntToDouble(original), convertIntToDouble(modified));
++            qualityMAE = Quality.countMAE(convertIntToDouble(original), convertIntToDouble(modified));
++            qualitySAE = Quality.countSAE(convertIntToDouble(original), convertIntToDouble(modified));
++
++        } else if (type == QualityType.Y || type == QualityType.Cb || type == QualityType.Cr) {
++            switch (type) {
++                case Y:
++                    originalM = originalY;
++                    modifiedM = modifiedY;
++                    break;
++                case Cb:
++                    originalM = originalCb;
++                    modifiedM = modifiedCb;
++                    break;
++                case Cr:
++                    originalM = originalCr;
++                    modifiedM = modifiedCr;
++                    break;
++            }
++            qualityMSE = Quality.countMSE(originalM.getArray(), modifiedM.getArray());
++            qualityMAE = Quality.countMAE(originalM.getArray(), modifiedM.getArray());
++            qualitySAE = Quality.countSAE(originalM.getArray(), modifiedM.getArray());
++
++        } else if (type == QualityType.RGB) {
++            double[][] originalRed = convertIntToDouble(this.originalRed);
++            double[][] originalGreen = convertIntToDouble(this.originalGreen);
++            double[][] originalBlue = convertIntToDouble(this.originalBlue);
++            double[][] modifiedRed = convertIntToDouble(this.modifiedRed);
++            double[][] modifiedGreen = convertIntToDouble(this.modifiedGreen);
++            double[][] modifiedBlue = convertIntToDouble(this.modifiedBlue);
++
++            qualityMSE += Quality.countMSE(originalRed, modifiedRed);
++            qualityMSE += Quality.countMSE(originalGreen, modifiedGreen);
++            qualityMSE += Quality.countMSE(originalBlue, modifiedBlue);
++            qualityMSE /= 3;
++
++            qualityMAE += Quality.countMAE(originalRed, modifiedRed);
++            qualityMAE += Quality.countMAE(originalGreen, modifiedGreen);
++            qualityMAE += Quality.countMAE(originalBlue, modifiedBlue);
++            qualityMAE /= 3;
++
++            qualitySAE += Quality.countSAE(originalRed, modifiedRed);
++            qualitySAE += Quality.countSAE(originalGreen, modifiedGreen);
++            qualitySAE += Quality.countSAE(originalBlue, modifiedBlue);
++            qualitySAE /= 3;
++
++        } else if (type == QualityType.YCbCr) {
++            qualityMSE += Quality.countMSE(originalY.getArray(), modifiedY.getArray());
++            qualityMSE += Quality.countMSE(originalCb.getArray(), modifiedCb.getArray());
++            qualityMSE += Quality.countMSE(originalCr.getArray(), modifiedCr.getArray());
++            qualityMSE /= 3;
++
++            qualityMAE += Quality.countMAE(originalY.getArray(), modifiedY.getArray());
++            qualityMAE += Quality.countMAE(originalCb.getArray(), modifiedCb.getArray());
++            qualityMAE += Quality.countMAE(originalCr.getArray(), modifiedCr.getArray());
++            qualityMAE /= 3;
++
++            qualitySAE += Quality.countSAE(originalY.getArray(), modifiedY.getArray());
++            qualitySAE += Quality.countSAE(originalCb.getArray(), modifiedCb.getArray());
++            qualitySAE += Quality.countSAE(originalCr.getArray(), modifiedCr.getArray());
++            qualitySAE /= 3;
++        }
++
++        qualityPSNR = Quality.countPSNR(qualityMSE);
++
++        mse.set(formatDouble(qualityMSE));
++        mae.set(formatDouble(qualityMAE));
++        psnr.set(formatDouble(qualityPSNR));
++        sae.set(formatDouble(qualitySAE));
++    }
++
++    /**
++     * Metoda pro zjištění kvality obrázku. Vypočítá se SSIM a MSSIM na základě zadaného typu pro zobrazení.
++     *
++     * @param type  Složka pro kterou se má vypočítat kvalita
++     * @param ssim  Výstupní pole pro zapsání hodnoty SSIM
++     * @param mssim Výstupní pole pro zapsání hodnoty MSSIM
++     */
++    public void countQualitySSIM(QualityType type, StringProperty ssim, StringProperty mssim) {
++        Matrix originalM = null, modifiedM = null;
++        switch (type) {
++            case Y:
++                originalM = originalY;
++                modifiedM = modifiedY;
++                break;
++            case Cb:
++                originalM = originalCb;
++                modifiedM = modifiedCb;
++                break;
++            case Cr:
++                originalM = originalCr;
++                modifiedM = modifiedCr;
++                break;
++        }
++
++        ssim.set(formatDouble(Quality.countSSIM(originalM, modifiedM)));
++        mssim.set(formatDouble(Quality.countMSSIM(originalM, modifiedM)));
++    }
++
++
++    // Add here the method for watermarking which will take selected watermark type as an input and Y part of the image 
++    // Arguments: Image, Watermark, Bit depth
++    public void LSBApply(WatermarkComponent component, int h) throws IOException{
++            System.out.println(component);
++            switch (component){
++                case Y:
++                    modifiedY = Watermark.ApplyLSB(modifiedY,originalWatermark, h);
++                    // byte n = blackWhiteBits(original)  
++                    break;
++                case Cb:
++                    modifiedCb = Watermark.ApplyLSB(modifiedCb,originalWatermark, h);
++                    break;
++                case Cr:
++                    modifiedCr = Watermark.ApplyLSB(modifiedCr,originalWatermark, h);
++                    break;
++            }
++        }
++    
++    public void LSBDecode(WatermarkComponent component, int h){
++        Matrix show_image;
++        BufferedImage result;
++        switch (component){
++                case Y:
++                    show_image = Watermark.decodeLSB(modifiedY, h);
++                    result = getOneColorImageFromYCbCr(show_image);
++                    Dialogs.showImageInWindow(result,"decoded"); 
++                    break;
++                case Cb:
++                    show_image = Watermark.decodeLSB(modifiedCb, h);
++                    result = getOneColorImageFromYCbCr(show_image);
++                    Dialogs.showImageInWindow(result,"decoded"); 
++                    break;
++                case Cr:
++                    show_image = Watermark.decodeLSB(modifiedCr, h);
++                    result = getOneColorImageFromYCbCr(show_image);
++                    Dialogs.showImageInWindow(result,"decoded"); 
++                    break;
++            }
++    }
++
++    public void DCTApply(WatermarkComponent component, int h,String coef1,String coef2){
++        System.out.println(component);
++        int[] cof1 = parseArrayString(coef1);
++        int[] cof2 = parseArrayString(coef2);
++        switch (component){
++            case Y:
++                modifiedY = Watermark.ApplyDCT(modifiedY,originalWatermakSmall,h,cof1,cof2);
++                break;
++            case Cb:
++                modifiedCb = Watermark.ApplyDCT(modifiedCb,originalWatermakSmall,h,cof1,cof2);
++                break;
++            case Cr:
++                modifiedCr = Watermark.ApplyDCT(modifiedCr,originalWatermakSmall,h,cof1,cof2);
++                break;
++        }
++    }
++    public void DCTDecode(WatermarkComponent component, int h,String coef1, String coef2){
++        System.out.println(component);
++        Matrix show_image;
++        BufferedImage result;
++        int[] cof1 = parseArrayString(coef1);
++        int[] cof2 = parseArrayString(coef2);
++        switch (component){
++            case Y:
++                show_image = Watermark.extractDCT(modifiedY,h,cof1,cof2);
++                result = getOneColorImageFromYCbCr(show_image);
++                Dialogs.showImageInWindow(result,"decoded"); 
++                break;
++
++            case Cb:
++                show_image = Watermark.extractDCT(modifiedCb,h,cof1,cof2);
++                result = getOneColorImageFromYCbCr(show_image);
++                Dialogs.showImageInWindow(result,"decoded"); 
++                break;
++
++            case Cr:
++                show_image = Watermark.extractDCT(modifiedCr,h,cof1,cof2);
++                result = getOneColorImageFromYCbCr(show_image);
++                Dialogs.showImageInWindow(result,"decoded"); 
++                break;
++
++        }
++    }       
++    
++    public void CompressJPEG(WatermarkComponent component) throws IOException{
++        int h = 50;
++        BufferedImage show_image;
++        BufferedImage result;
++        switch(component){
++            case Y:
++                result = getOneColorImageFromYCbCr(modifiedY);
++                show_image = Watermark.JPEGAttack(result, h);
++                modifiedY = imageToMatrix(show_image);
++                break;
++            case Cb:
++                result = getOneColorImageFromYCbCr(modifiedCb);
++                show_image = Watermark.JPEGAttack(result, h);
++                modifiedCr = imageToMatrix(show_image);
++                break;
++            case Cr:
++                result = getOneColorImageFromYCbCr(modifiedCr);
++                show_image = Watermark.JPEGAttack(result, h);
++                modifiedCb = imageToMatrix(show_image);
++                break;
++        }
++    }
++
++    public void CropImage(WatermarkComponent component){
++        int h = 100;
++        BufferedImage show_image;
++        BufferedImage result;
++        switch (component){
++                case Y:
++                    result = getOneColorImageFromYCbCr(modifiedY);
++                    show_image = Watermark.CropAttack(result, h);
++                    modifiedY = imageToMatrix(show_image);
++                    break;
++                case Cb:
++                    result = getOneColorImageFromYCbCr(modifiedCb);
++                    show_image = Watermark.CropAttack(result, h);
++                    modifiedCb = imageToMatrix(show_image);
++                    break;
++                case Cr:
++                    result = getOneColorImageFromYCbCr(modifiedCr);
++                    show_image = Watermark.CropAttack(result, h);
++                    modifiedCr = imageToMatrix(show_image);
++                    break;
++        }  
++    }
++
++    public void FlipImage(WatermarkComponent component){
++        BufferedImage show_image;
++        BufferedImage result;
++        switch (component){
++            case Y:
++                result = getOneColorImageFromYCbCr(modifiedY);
++                show_image = Watermark.FlipAttack(result);
++                modifiedY = imageToMatrix(show_image);
++                break;
++            case Cb:
++                result = getOneColorImageFromYCbCr(modifiedCb);
++                show_image = Watermark.FlipAttack(result );
++                modifiedCb = imageToMatrix(show_image);
++                break;
++            case Cr:
++                result = getOneColorImageFromYCbCr(modifiedCr);
++                show_image = Watermark.FlipAttack(result);
++                modifiedCr = imageToMatrix(show_image);
++                break;
++        }  
++    }
++
++    private Matrix imageToMatrix(BufferedImage image) {
++        int height = image.getHeight(), width = image.getWidth();
++        double[][] matrixData = new double[height][width];
++        // Matrix result = new Matrix(height, width);
++        for (int h = 0; h < height; h++) {
++            for (int w = 0; w < width; w++) {
++                int pixel = image.getRGB(h, w);
++                Color color = new Color(pixel);
++                int red = color.getRed();
++                int green = color.getGreen();
++                int blue = color.getBlue();
++                
++                double y = 0.257 * red + 0.504 * green + 0.098 * blue + 16;
++                matrixData[w][h] = y;
++            }
++        }
++        return new Matrix(matrixData);
++    }
++
++    private static int[] parseArrayString(String str) {
++        str = str.replaceAll("[{}]", ""); // remove curly braces
++        String[] parts = str.split(",");
++        int[] arr = new int[2];
++        arr[0] = Integer.parseInt(parts[0].trim());
++        arr[1] = Integer.parseInt(parts[1].trim());
++        return arr;
++    }
++
++    //#region Getters
++    public BufferedImage getOriginalImage() {
++        return originalImage;
++    }
++
++    public BufferedImage getOriginalWatermark(){
++        return originalWatermark;
++    }
++
++    public int[][] getOriginalRed() {
++        return originalRed;
++    }
++
++    public int[][] getModifiedRed() {
++        return modifiedRed;
++    }
++
++    public int[][] getOriginalGreen() {
++        return originalGreen;
++    }
++
++    public int[][] getModifiedGreen() {
++        return modifiedGreen;
++    }
++
++    public int[][] getOriginalBlue() {
++        return originalBlue;
++    }
++
++    public int[][] getModifiedBlue() {
++        return modifiedBlue;
++    }
++
++    public Matrix getOriginalY() {
++        return originalY;
++    }
++
++    public Matrix getModifiedY() {
++        return modifiedY;
++    }
++
++    public Matrix getOriginalCb() {
++        return originalCb;
++    }
++
++    public Matrix getModifiedCb() {
++        return modifiedCb;
++    }
++
++    public Matrix getOriginalCr() {
++        return originalCr;
++    }
++
++    public Matrix getModifiedCr() {
++        return modifiedCr;
++    }
++
++    public int getImageHeight() {
++        return imageHeight;
++    }
++
++    public int getImageWidth() {
++        return imageWidth;
++    }
++    //#endregion
++
++    // Metoda pro převod pole int [][] na pole double [][]
++    public static double[][] convertIntToDouble(int[][] intArray) {
++        double[][] doubleArray = new double[intArray.length][intArray[0].length];
++
++        for (int i = 0; i < intArray.length; i++) {
++            for (int j = 0; j < intArray[0].length; j++) {
++                doubleArray[i][j] = (double) intArray[i][j];
++            }
++        }
++
++        return doubleArray;
++    }
++
++    // Metoda pro formátování double na požadovaný počet desetinných míst
++    private static String formatDouble(double value) {
++        if (Double.isInfinite(value)) {
++            return String.valueOf(value);
++        } else {
++            return String.format(String.format("%%.%df", DECIMALS), value);
++        }
++    }
++}
+diff --git a/src/main/java/Jpeg/Quality.java b/src/main/java/Jpeg/Quality.java
+index 8380197..3aaf507 100644
+--- a/src/main/java/Jpeg/Quality.java
++++ b/src/main/java/Jpeg/Quality.java
+@@ -1,177 +1,177 @@
+-package Jpeg;
+-
+-import Jama.Matrix;
+-
+-public class Quality {
+-
+-    /**
+-     * Metoda pro výpočet PSNR z MSE.
+-     *
+-     * @param MSE
+-     * @return
+-     */
+-    public static double countPSNR(double MSE) {
+-        int colorBits = 8;
+-        double color = Math.pow(2, colorBits) - 1.0;
+-        color = Math.pow(color, 2);
+-
+-        return 10 * Math.log10((color) / (MSE));
+-    }
+-
+-    /**
+-     * Metoda pro výpočet PSNR z MSE pro RGB obrázek.
+-     *
+-     * @return
+-     */
+-    public static double countPSNRforRGB(double mseRed, double mseGreen, double mseBlue) {
+-        double averageMSE = (mseRed + mseGreen + mseBlue) / 3;
+-
+-        return countPSNR(averageMSE);
+-    }
+-
+-    /**
+-     * Metoda pro výpočet MAE s použitím double[][].
+-     * Nutný převod na double[][] z int[][] (pro RGB hodnoty).
+-     * Nutný převod na double[][] z Matrix (pro YCbCr hodnoty).
+-     * MSE = Mean Squared Error
+-     *
+-     * @param original
+-     * @param modified
+-     * @return MSE
+-     */
+-    public static double countMSE(double[][] original, double[][] modified) {
+-        int height = original.length, width = original[0].length;
+-        double mse = 0.0;
+-
+-        for (int m = 0; m < width; m++) {
+-            for (int n = 0; n < height; n++) {
+-                mse += Math.pow(original[n][m] - modified[n][m], 2);
+-            }
+-        }
+-
+-        return (mse / (height * width));
+-    }
+-
+-    /**
+-     * Metoda pro výpočet MAE s použitím double[][].
+-     * Nutný převod na double[][] z int[][] (pro RGB hodnoty).
+-     * Nutný převod na double[][] z Matrix (pro YCbCr hodnoty).
+-     * MAE = Mean Absolute Error
+-     *
+-     * @param original
+-     * @param modified
+-     * @return MAE
+-     */
+-    public static double countMAE(double[][] original, double[][] modified) {
+-        int height = original.length, width = original[0].length;
+-        double mae = 0.0;
+-
+-        for (int m = 0; m < width; m++) { // Width
+-            for (int n = 0; n < height; n++) { // Height
+-                mae += Math.abs(original[n][m] - modified[n][m]);
+-            }
+-        }
+-
+-        return (mae / (height * width));
+-
+-        // Případně lze zjednodušit na
+-        // return countSAE(original, modified) / (original.length * original[0].length);
+-    }
+-
+-    /**
+-     * Metoda pro výpočet SAE s použitím double[][].
+-     * Nutný převod na double[][] z int[][] (pro RGB hodnoty).
+-     * Nutný převod na double[][] z Matrix (pro YCbCr hodnoty).
+-     * SAE = Sum of Absolute Errors
+-     *
+-     * @param original
+-     * @param modified
+-     * @return
+-     */
+-    public static double countSAE(double[][] original, double[][] modified) {
+-        double sae = 0.0;
+-
+-        for (int m = 0; m < original[0].length; m++) { // Width
+-            for (int n = 0; n < original.length; n++) { // Height
+-                sae += Math.abs(original[n][m] - modified[n][m]);
+-            }
+-        }
+-
+-        return sae;
+-    }
+-
+-
+-    /**
+-     * Metoda pro výpočet SSIM pro složky v YCbCr.
+-     *
+-     * @param original
+-     * @param modified
+-     * @return SSIM
+-     */
+-    public static double countSSIM(Matrix original, Matrix modified) {
+-        int height = original.getRowDimension(), width = original.getColumnDimension();
+-        int N = height * width;
+-        double miX = 0.0, miY = 0.0;
+-        double sigmaX = 0.0, sigmaY = 0.0, sigmaXY = 0.0;
+-        double C1 = Math.pow(0.01 * 255, 2);
+-        double C2 = Math.pow(0.03 * 255, 2);
+-
+-        // Spočítá průměrné hodnotu originálu a upraveného obrázku
+-        for (int x = 0; x < width; x++) {
+-            for (int y = 0; y < height; y++) {
+-                miX += original.get(y, x);
+-                miY += modified.get(y, x);
+-            }
+-        }
+-        miX /= N;
+-        miY /= N;
+-
+-        // Spočítá střední kvadratickou odchylku a kovariaci originálu a upraveného obrázku
+-        for (int x = 0; x < width; x++) {
+-            for (int y = 0; y < height; y++) {
+-                sigmaX += Math.pow(original.get(y, x) - miX, 2);
+-                sigmaY += Math.pow(modified.get(y, x) - miY, 2);
+-                sigmaXY += (original.get(y, x) - miX) * (modified.get(y, x) - miY);
+-            }
+-        }
+-
+-        // Dopočtení hodnot po předchozí sumě
+-        sigmaX = Math.sqrt(sigmaX / (N - 1));
+-        sigmaY = Math.sqrt(sigmaY / (N - 1));
+-        sigmaXY /= (N - 1);
+-
+-        // Výpočet SSIM
+-        double SSIM = ((2 * miX * miY + C1) * (2 * sigmaXY + C2)) /
+-                ((miX * miX + miY * miY + C1) * (sigmaX * sigmaX + sigmaY * sigmaY + C2));
+-
+-        return SSIM;
+-    }
+-
+-    /**
+-     * Metoda pro výpočet MSSIM pro složky v YCbCr.
+-     * Výpočet MSSIM po 8x8 blocích.
+-     *
+-     * @param original
+-     * @param modified
+-     * @return MSSIM
+-     */
+-    public static double countMSSIM(Matrix original, Matrix modified) {
+-        int height = original.getRowDimension(), width = original.getColumnDimension();
+-        int M = 0;
+-        double sum = 0.0;
+-
+-        // Prochází obrázek po 8x8 blocích
+-        // Pokud není obrázek dělitelný 8, tak se krajní necelé bloky přeskočí (obrázek 64x64 bude mít stejný výstup jako obrázky 65x65 až 71x71)
+-        for (int i = 0; i < (height - 7); i += 8) {
+-            for (int j = 0; j < (width - 7); j += 8) {
+-                M++;
+-                // Výpočet SSIM pro každý blok a součet všech SSIM, bloky se získají jako submatice
+-                sum += countSSIM(original.getMatrix(i, i + 7, j, j + 7),
+-                                 modified.getMatrix(i, i + 7, j, j + 7));
+-            }
+-        }
+-
+-        return sum / M;
+-    }
+-
+-}
++package Jpeg;
++
++import Jama.Matrix;
++
++public class Quality {
++
++    /**
++     * Metoda pro výpočet PSNR z MSE.
++     *
++     * @param MSE
++     * @return
++     */
++    public static double countPSNR(double MSE) {
++        int colorBits = 8;
++        double color = Math.pow(2, colorBits) - 1.0;
++        color = Math.pow(color, 2);
++
++        return 10 * Math.log10((color) / (MSE));
++    }
++
++    /**
++     * Metoda pro výpočet PSNR z MSE pro RGB obrázek.
++     *
++     * @return
++     */
++    public static double countPSNRforRGB(double mseRed, double mseGreen, double mseBlue) {
++        double averageMSE = (mseRed + mseGreen + mseBlue) / 3;
++
++        return countPSNR(averageMSE);
++    }
++
++    /**
++     * Metoda pro výpočet MAE s použitím double[][].
++     * Nutný převod na double[][] z int[][] (pro RGB hodnoty).
++     * Nutný převod na double[][] z Matrix (pro YCbCr hodnoty).
++     * MSE = Mean Squared Error
++     *
++     * @param original
++     * @param modified
++     * @return MSE
++     */
++    public static double countMSE(double[][] original, double[][] modified) {
++        int height = original.length, width = original[0].length;
++        double mse = 0.0;
++
++        for (int m = 0; m < width; m++) {
++            for (int n = 0; n < height; n++) {
++                mse += Math.pow(original[n][m] - modified[n][m], 2);
++            }
++        }
++
++        return (mse / (height * width));
++    }
++
++    /**
++     * Metoda pro výpočet MAE s použitím double[][].
++     * Nutný převod na double[][] z int[][] (pro RGB hodnoty).
++     * Nutný převod na double[][] z Matrix (pro YCbCr hodnoty).
++     * MAE = Mean Absolute Error
++     *
++     * @param original
++     * @param modified
++     * @return MAE
++     */
++    public static double countMAE(double[][] original, double[][] modified) {
++        int height = original.length, width = original[0].length;
++        double mae = 0.0;
++
++        for (int m = 0; m < width; m++) { // Width
++            for (int n = 0; n < height; n++) { // Height
++                mae += Math.abs(original[n][m] - modified[n][m]);
++            }
++        }
++
++        return (mae / (height * width));
++
++        // Případně lze zjednodušit na
++        // return countSAE(original, modified) / (original.length * original[0].length);
++    }
++
++    /**
++     * Metoda pro výpočet SAE s použitím double[][].
++     * Nutný převod na double[][] z int[][] (pro RGB hodnoty).
++     * Nutný převod na double[][] z Matrix (pro YCbCr hodnoty).
++     * SAE = Sum of Absolute Errors
++     *
++     * @param original
++     * @param modified
++     * @return
++     */
++    public static double countSAE(double[][] original, double[][] modified) {
++        double sae = 0.0;
++
++        for (int m = 0; m < original[0].length; m++) { // Width
++            for (int n = 0; n < original.length; n++) { // Height
++                sae += Math.abs(original[n][m] - modified[n][m]);
++            }
++        }
++
++        return sae;
++    }
++
++
++    /**
++     * Metoda pro výpočet SSIM pro složky v YCbCr.
++     *
++     * @param original
++     * @param modified
++     * @return SSIM
++     */
++    public static double countSSIM(Matrix original, Matrix modified) {
++        int height = original.getRowDimension(), width = original.getColumnDimension();
++        int N = height * width;
++        double miX = 0.0, miY = 0.0;
++        double sigmaX = 0.0, sigmaY = 0.0, sigmaXY = 0.0;
++        double C1 = Math.pow(0.01 * 255, 2);
++        double C2 = Math.pow(0.03 * 255, 2);
++
++        // Spočítá průměrné hodnotu originálu a upraveného obrázku
++        for (int x = 0; x < width; x++) {
++            for (int y = 0; y < height; y++) {
++                miX += original.get(y, x);
++                miY += modified.get(y, x);
++            }
++        }
++        miX /= N;
++        miY /= N;
++
++        // Spočítá střední kvadratickou odchylku a kovariaci originálu a upraveného obrázku
++        for (int x = 0; x < width; x++) {
++            for (int y = 0; y < height; y++) {
++                sigmaX += Math.pow(original.get(y, x) - miX, 2);
++                sigmaY += Math.pow(modified.get(y, x) - miY, 2);
++                sigmaXY += (original.get(y, x) - miX) * (modified.get(y, x) - miY);
++            }
++        }
++
++        // Dopočtení hodnot po předchozí sumě
++        sigmaX = Math.sqrt(sigmaX / (N - 1));
++        sigmaY = Math.sqrt(sigmaY / (N - 1));
++        sigmaXY /= (N - 1);
++
++        // Výpočet SSIM
++        double SSIM = ((2 * miX * miY + C1) * (2 * sigmaXY + C2)) /
++                ((miX * miX + miY * miY + C1) * (sigmaX * sigmaX + sigmaY * sigmaY + C2));
++
++        return SSIM;
++    }
++
++    /**
++     * Metoda pro výpočet MSSIM pro složky v YCbCr.
++     * Výpočet MSSIM po 8x8 blocích.
++     *
++     * @param original
++     * @param modified
++     * @return MSSIM
++     */
++    public static double countMSSIM(Matrix original, Matrix modified) {
++        int height = original.getRowDimension(), width = original.getColumnDimension();
++        int M = 0;
++        double sum = 0.0;
++
++        // Prochází obrázek po 8x8 blocích
++        // Pokud není obrázek dělitelný 8, tak se krajní necelé bloky přeskočí (obrázek 64x64 bude mít stejný výstup jako obrázky 65x65 až 71x71)
++        for (int i = 0; i < (height - 7); i += 8) {
++            for (int j = 0; j < (width - 7); j += 8) {
++                M++;
++                // Výpočet SSIM pro každý blok a součet všech SSIM, bloky se získají jako submatice
++                sum += countSSIM(original.getMatrix(i, i + 7, j, j + 7),
++                                 modified.getMatrix(i, i + 7, j, j + 7));
++            }
++        }
++
++        return sum / M;
++    }
++
++}
+diff --git a/src/main/java/Jpeg/Quantization.java b/src/main/java/Jpeg/Quantization.java
+index 496b342..a07b12f 100644
+--- a/src/main/java/Jpeg/Quantization.java
++++ b/src/main/java/Jpeg/Quantization.java
+@@ -1,162 +1,118 @@
+-package Jpeg;
+-
+-import Enums.SamplingType;
+-import Jama.Matrix;
+-
+-public class Quantization {
+-
+-    /**
+-     * Metoda pro kvantizaci.
+-     *
+-     * @param input     Matice, ktera se ma kvantizovat
+-     * @param blockSize Velikost bloku
+-     * @param quality   Kvalita
+-     * @param matrixY   True pro Y, false pro C
+-     * @return Kvantizovana matice
+-     */
+-    public static Matrix quantize(Matrix input, int blockSize, double quality, boolean matrixY) {
+-        Matrix transformMatrix = getQuantizationMatrix(blockSize, quality, matrixY);
+-
+-        Matrix output = new Matrix(input.getRowDimension(), input.getColumnDimension());
+-
+-        for (int col = 0; col < (input.getColumnDimension() - blockSize + 1); col += blockSize) {
+-            for (int row = 0; row < (input.getRowDimension() - blockSize + 1); row += blockSize) {
+-                Matrix block = input.getMatrix(row, row + blockSize - 1, col, col + blockSize - 1); // B
+-
+-                Matrix quantum = quantumStep(block, transformMatrix); // C = B / Q, vcetne zaokrouhleni
+-
+-                output.setMatrix(row, row + blockSize - 1, col, col + blockSize - 1, quantum);
+-            }
+-        }
+-
+-        return output;
+-    }
+-
+-    /**
+-     * Metoda pro inverzni kvantizaci
+-     *
+-     * @param input     Matice k inverzni kvantizaci
+-     * @param blockSize Velikost bloku
+-     * @param quality   Kvalita vystupu
+-     * @param matrixY   True pro Y, false pro C
+-     * @return Vysledna matice po inverzni kvantizaci
+-     */
+-    public static Matrix inverseQuantize(Matrix input, int blockSize, double quality, boolean matrixY) {
+-        Matrix quantizationMatrix = getQuantizationMatrix(blockSize, quality, matrixY);
+-
+-        Matrix output = new Matrix(input.getRowDimension(), input.getColumnDimension());
+-
+-        for (int col = 0; col < (input.getColumnDimension() - blockSize + 1); col += blockSize) {
+-            for (int row = 0; row < (input.getRowDimension() - blockSize + 1); row += blockSize) {
+-                Matrix block = input.getMatrix(row, row + blockSize - 1, col, col + blockSize - 1); // B
+-
+-                Matrix quantum = block.arrayTimes(quantizationMatrix); // B * Q
+-
+-                output.setMatrix(row, row + blockSize - 1, col, col + blockSize - 1, quantum);
+-            }
+-        }
+-
+-        return output;
+-    }
+-
+-    /**
+-     * Metoda pro kvantizaci bloku
+-     * Pri kvantizaci se hodnoty zaokrouhli dolu
+-     *
+-     * @param input              Blok pro kvantizaci
+-     * @param quantizationMatrix Kvantizacni matice
+-     * @return
+-     */
+-    private static Matrix quantumStep(Matrix input, Matrix quantizationMatrix) {
+-        for (int col = 0; col < input.getColumnDimension(); col++) {
+-            for (int row = 0; row < input.getRowDimension(); row++) {
+-                input.set(row, col, Math.floor(input.get(row, col) / quantizationMatrix.get(row, col)));
+-            }
+-        }
+-
+-        return input;
+-    }
+-
+-    /**
+-     * Metoda pro ziskani kvantizacni matice
+-     *
+-     * @param blockSize Velikost bloku
+-     * @param quality   Kvalita
+-     * @param matrixY   True pro Y, false pro Cb a Cr
+-     * @return Kvantizacni matice
+-     */
+-    public static Matrix getQuantizationMatrix(int blockSize, double quality, boolean matrixY) {
+-        Matrix quantizationMatrix;
+-
+-        if (quality == 100) return new Matrix(blockSize, blockSize, 1); // Pokud je kvalita 100, tak se kvantizace neprovádí
+-
+-        if (matrixY) {
+-            quantizationMatrix = changeMatrix(new Matrix(quantizationMatrix8Y), blockSize);
+-        } else {
+-            quantizationMatrix = changeMatrix(new Matrix(quantizationMatrix8C), blockSize);
+-        }
+-
+-        return quantizationMatrix.times(getAlpha(quality)); // Nasobeni kvantizacni matice pomoci hodnoty alpha
+-    }
+-
+-    /**
+-     * Metoda pro ziskani hodnoty alpha
+-     *
+-     * @param quality Kvalita
+-     * @return Hodnota alpha
+-     */
+-    private static double getAlpha(double quality) {
+-        if (1 <= quality && quality <= 50) {
+-            return 50.0 / quality;
+-        } else if (50 <= quality && quality <= 99) {
+-            return 2.0 - ((2 * quality) / 100);
+-        }
+-
+-        return 0;
+-    }
+-
+-    /**
+-     * Metoda pro zmenu velikosti kvantizacni matice.
+-     * Vyuziva metody Sampling pro zmenu velikosti matice (4:2:0).
+-     *
+-     * @param input        Puvodni kvantizacni matice
+-     * @param newBlockSize Nova velikost bloku
+-     * @return Zmenena kvantizacni matice
+-     */
+-    private static Matrix changeMatrix(Matrix input, int newBlockSize) {
+-        int originalBlockSize = input.getRowDimension();
+-
+-        if (originalBlockSize == newBlockSize){
+-            return input;
+-        }
+-
+-        if (originalBlockSize > newBlockSize) {
+-            return changeMatrix(Sampling.sampleDown(input, SamplingType.S_4_2_0), newBlockSize);
+-        }
+-
+-        // (originalBlockSize < newBlockSize)
+-        return changeMatrix(Sampling.sampleUp(input, SamplingType.S_4_2_0), newBlockSize);
+-    }
+-
+-    // Kvantizacni matice pro 8x8 bloky (Y) - jasova slozka, kvalita 50
+-    private static final double[][] quantizationMatrix8Y = {
+-            {16, 11, 10, 16, 24, 40, 51, 61},
+-            {12, 12, 14, 19, 26, 58, 60, 55},
+-            {14, 13, 16, 24, 40, 57, 69, 56},
+-            {14, 17, 22, 29, 51, 87, 80, 62},
+-            {18, 22, 37, 56, 68, 109, 103, 77},
+-            {24, 35, 55, 64, 81, 104, 113, 92},
+-            {49, 64, 78, 87, 103, 121, 120, 101},
+-            {72, 92, 95, 98, 112, 100, 103, 99}};
+-
+-    // Kvantizacni matice pro 8x8 bloky (Cb a Cr) - barevne slozky, kvalita 50
+-    private static final double[][] quantizationMatrix8C = {
+-            {17, 18, 24, 47, 99, 99, 99, 99},
+-            {18, 21, 26, 66, 99, 99, 99, 99},
+-            {24, 26, 56, 99, 99, 99, 99, 99},
+-            {47, 66, 99, 99, 99, 99, 99, 99},
+-            {99, 99, 99, 99, 99, 99, 99, 99},
+-            {99, 99, 99, 99, 99, 99, 99, 99},
+-            {99, 99, 99, 99, 99, 99, 99, 99},
+-            {99, 99, 99, 99, 99, 99, 99, 99}};
+-}
++package Jpeg;
++
++import Enums.SamplingType;
++import Jama.Matrix;
++
++public class Quantization {
++
++    // obtain quantization matrix
++    public static Matrix getQuantizationMatrix(int blockSize, double quality, boolean MatrixY){
++        Matrix quantMatrix;
++        
++        if (quality != 100){
++            if (MatrixY){
++                Matrix output = new Matrix(quantizationMatrix8Y);
++                quantMatrix = changeMatSize(output, blockSize);
++            } else {
++                Matrix output = new Matrix(quantizationMatrix8C);
++                quantMatrix = changeMatSize(output, blockSize);
++            }
++        
++        } else {
++            return new Matrix(blockSize, blockSize,1);
++        }
++        return quantMatrix.times(getAlphMatrix(quality));
++    }   
++    // base on the size we either dowsample, upsample or return the same
++    private static Matrix changeMatSize(Matrix inpuMatrix, int size){
++        int originalSize = inpuMatrix.getColumnDimension();
++        if (originalSize >size){
++            return  changeMatSize(Sampling.sampleDown(inpuMatrix,SamplingType.S_4_2_0),size);
++        } else if (originalSize<size) {
++            return changeMatSize(Sampling.sampleUp(inpuMatrix,SamplingType.S_4_2_0),size);
++        } 
++        return inpuMatrix;
++
++        
++    }
++
++    private static double getAlphMatrix(double quality){
++
++        if (1 <= quality && quality <= 50) {
++            return 50.0 / quality;
++        } else if (50 <= quality && quality <= 99) {
++            return 2.0 - ((2 * quality) / 100);
++        }
++
++        return 0;
++    }
++
++
++
++    
++    public static Matrix quantize(Matrix inputMatrix, int blockSize, double quality, boolean MatrixY){
++        Matrix quantMat = getQuantizationMatrix(blockSize, quality, MatrixY);
++        Matrix output = new Matrix(inputMatrix.getRowDimension(), inputMatrix.getColumnDimension());
++        for (int col= 0; col< inputMatrix.getColumnDimension() - blockSize + 1;col += blockSize) {
++           for (int row = 0; row < inputMatrix.getRowDimension() - blockSize + 1; row+=blockSize) {
++               Matrix block = inputMatrix.getMatrix(row, row + blockSize - 1, col, col +blockSize - 1);
++               Matrix quant= quantStep(block, quantMat);
++
++               output.setMatrix(row, row + blockSize - 1, col, col + blockSize - 1, quant);
++           } 
++        }
++        return output;
++    }
++
++    private static Matrix quantStep(Matrix inMatrix, Matrix quanMatrix){
++       for (int col = 0; col < inMatrix.getColumnDimension(); col++) {
++            for (int row = 0; row < inMatrix.getRowDimension(); row++) {
++                inMatrix.set(row, col, Math.floor(inMatrix.get(row, col) / quanMatrix.get(row, col)));
++            }
++        }
++
++        return inMatrix;
++    }
++
++ 
++    
++
++    public static Matrix inverseQuantize(Matrix inputMatrix, int blockSize, double quality, boolean MatrixY){
++        Matrix quantMatrix = getQuantizationMatrix(blockSize, quality, MatrixY);
++        Matrix output = new Matrix(inputMatrix.getRowDimension(), inputMatrix.getColumnDimension());
++        for (int col= 0; col< inputMatrix.getColumnDimension() - blockSize + 1; col+=blockSize ){
++           for (int row = 0; row < inputMatrix.getRowDimension() - blockSize + 1; row+=blockSize) {
++               Matrix block = inputMatrix.getMatrix(row, row + blockSize - 1, col, col +blockSize - 1);
++               Matrix quant= block.arrayTimes(quantMatrix );
++
++               output.setMatrix(row, row + blockSize - 1, col, col + blockSize - 1, quant);
++           } 
++        }
++        return output;
++    }
++
++
++    
++    // 8x8 matrix for Y luminance 
++    private static final double[][] quantizationMatrix8Y = {
++        {16, 11, 10, 16, 24, 40, 51, 61},
++        {12, 12, 14, 19, 26, 58, 60, 55},
++        {14, 13, 16, 24, 40, 57, 69, 56},
++        {14, 17, 22, 29, 51, 87, 80, 62},
++        {18, 22, 37, 56, 68, 109, 103, 77},
++        {24, 35, 55, 64, 81, 104, 113, 92},
++        {49, 64, 78, 87, 103, 121, 120, 101},
++        {72, 92, 95, 98, 112, 100, 103, 99}};
++    
++    // 8x8 matrix for Cb, Cr for the color part 
++    private static final double[][] quantizationMatrix8C = {
++            {17, 18, 24, 47, 99, 99, 99, 99},
++            {18, 21, 26, 66, 99, 99, 99, 99},
++            {24, 26, 56, 99, 99, 99, 99, 99},
++            {47, 66, 99, 99, 99, 99, 99, 99},
++            {99, 99, 99, 99, 99, 99, 99, 99},
++            {99, 99, 99, 99, 99, 99, 99, 99},
++            {99, 99, 99, 99, 99, 99, 99, 99},
++            {99, 99, 99, 99, 99, 99, 99, 99}};
++    }
++
+diff --git a/src/main/java/Jpeg/Sampling.java b/src/main/java/Jpeg/Sampling.java
+index fb01dac..c86b250 100644
+--- a/src/main/java/Jpeg/Sampling.java
++++ b/src/main/java/Jpeg/Sampling.java
+@@ -1,100 +1,100 @@
+-package Jpeg;
+-
+-import Enums.SamplingType;
+-import Jama.Matrix;
+-
+-import java.util.stream.IntStream;
+-
+-public class Sampling {
+-
+-
+-    /**
+-     * Tato metoda vytvoří pole id řádků a také pole s id sloupců, kde se zachová pouze každý n-tý prvek.
+-     *
+-     * @param inputMatrix vstupní matice
+-     * @param jump        kolikátý prvek se zachová
+-     * @return zmenšená matice
+-     */
+-    private static Matrix downSample(Matrix inputMatrix, int jump) {
+-        int[] rows = IntStream.range(0, inputMatrix.getRowDimension()).toArray();
+-        int[] columns = IntStream.iterate(0, n -> n + jump).limit((int) Math.ceil(inputMatrix.getColumnDimension() / (double) jump)).toArray();
+-
+-        return inputMatrix.getMatrix(rows, columns);
+-    }
+-
+-    /**
+-     * Tato metoda vytvoří pole id řádků a také jedno pole s id sloupců. Tyto id se patřičným způsobem zduplikují,
+-     * aby bylo možné z vstupní matice získat matici, kde se příslušné řádky duplikují.
+-     *
+-     * @param inputMatrix vstupní matice
+-     * @param jump        počet sloupců se stejnou hodnotou
+-     * @return rozšířená matice
+-     */
+-    private static Matrix overSample(Matrix inputMatrix, int jump) {
+-        int[] rows = IntStream.range(0, inputMatrix.getRowDimension()).toArray();
+-        int[] columns = IntStream.iterate(0, n -> n + 1).limit(inputMatrix.getColumnDimension()).flatMap(i -> IntStream.generate(() -> i).limit(jump)).toArray();
+-
+-        return inputMatrix.getMatrix(rows, columns);
+-    }
+-
+-
+-    /**
+-     * Tato metoda vytvoří novou matici, která je výsledkem zmenšení vstupní matice
+-     * podle zvoleného vzorkování.
+-     *
+-     * @param inputMatrix  vstupní matice
+-     * @param samplingType typ vzorkování
+-     * @return zmenšená matice
+-     */
+-    public static Matrix sampleDown(Matrix inputMatrix, SamplingType samplingType) {
+-        switch (samplingType) {
+-            case S_4_1_1:
+-                return downSample(inputMatrix, 4);
+-
+-            case S_4_2_0:
+-                Matrix w = downSample(inputMatrix, 2);
+-                w = w.transpose();
+-                w = downSample(w, 2);
+-                w = w.transpose();
+-                return w;
+-
+-            case S_4_2_2:
+-                return downSample(inputMatrix, 2);
+-
+-            case S_4_4_4:
+-            default:
+-                return inputMatrix;
+-        }
+-    }
+-
+-
+-    /**
+-     * Tato metoda vytvoří novou matici, která je výsledkem rozšíření vstupní matice
+-     * podle zvoleného vzorkování.
+-     *
+-     * @param inputMatrix  vstupní matice
+-     * @param samplingType typ vzorkování
+-     * @return rozšířená matice
+-     */
+-    public static Matrix sampleUp(Matrix inputMatrix, SamplingType samplingType) {
+-        switch (samplingType) {
+-            case S_4_1_1:
+-                return overSample(inputMatrix, 4);
+-
+-            case S_4_2_0:
+-                Matrix w = overSample(inputMatrix, 2);
+-                w = w.transpose();
+-                w = overSample(w, 2);
+-                w = w.transpose();
+-                return w;
+-
+-            case S_4_2_2:
+-                return overSample(inputMatrix, 2);
+-
+-            case S_4_4_4:
+-            default:
+-                return inputMatrix;
+-        }
+-    }
+-
+-}
++package Jpeg;
++
++import Enums.SamplingType;
++import Jama.Matrix;
++
++import java.util.stream.IntStream;
++
++public class Sampling {
++
++
++    /**
++     * Tato metoda vytvoří pole id řádků a také pole s id sloupců, kde se zachová pouze každý n-tý prvek.
++     *
++     * @param inputMatrix vstupní matice
++     * @param jump        kolikátý prvek se zachová
++     * @return zmenšená matice
++     */
++    private static Matrix downSample(Matrix inputMatrix, int jump) {
++        int[] rows = IntStream.range(0, inputMatrix.getRowDimension()).toArray();
++        int[] columns = IntStream.iterate(0, n -> n + jump).limit((int) Math.ceil(inputMatrix.getColumnDimension() / (double) jump)).toArray();
++
++        return inputMatrix.getMatrix(rows, columns);
++    }
++
++    /**
++     * Tato metoda vytvoří pole id řádků a také jedno pole s id sloupců. Tyto id se patřičným způsobem zduplikují,
++     * aby bylo možné z vstupní matice získat matici, kde se příslušné řádky duplikují.
++     *
++     * @param inputMatrix vstupní matice
++     * @param jump        počet sloupců se stejnou hodnotou
++     * @return rozšířená matice
++     */
++    private static Matrix overSample(Matrix inputMatrix, int jump) {
++        int[] rows = IntStream.range(0, inputMatrix.getRowDimension()).toArray();
++        int[] columns = IntStream.iterate(0, n -> n + 1).limit(inputMatrix.getColumnDimension()).flatMap(i -> IntStream.generate(() -> i).limit(jump)).toArray();
++
++        return inputMatrix.getMatrix(rows, columns);
++    }
++
++
++    /**
++     * Tato metoda vytvoří novou matici, která je výsledkem zmenšení vstupní matice
++     * podle zvoleného vzorkování.
++     *
++     * @param inputMatrix  vstupní matice
++     * @param samplingType typ vzorkování
++     * @return zmenšená matice
++     */
++    public static Matrix sampleDown(Matrix inputMatrix, SamplingType samplingType) {
++        switch (samplingType) {
++            case S_4_1_1:
++                return downSample(inputMatrix, 4);
++
++            case S_4_2_0:
++                Matrix w = downSample(inputMatrix, 2);
++                w = w.transpose();
++                w = downSample(w, 2);
++                w = w.transpose();
++                return w;
++
++            case S_4_2_2:
++                return downSample(inputMatrix, 2);
++
++            case S_4_4_4:
++            default:
++                return inputMatrix;
++        }
++    }
++
++
++    /**
++     * Tato metoda vytvoří novou matici, která je výsledkem rozšíření vstupní matice
++     * podle zvoleného vzorkování.
++     *
++     * @param inputMatrix  vstupní matice
++     * @param samplingType typ vzorkování
++     * @return rozšířená matice
++     */
++    public static Matrix sampleUp(Matrix inputMatrix, SamplingType samplingType) {
++        switch (samplingType) {
++            case S_4_1_1:
++                return overSample(inputMatrix, 4);
++
++            case S_4_2_0:
++                Matrix w = overSample(inputMatrix, 2);
++                w = w.transpose();
++                w = overSample(w, 2);
++                w = w.transpose();
++                return w;
++
++            case S_4_2_2:
++                return overSample(inputMatrix, 2);
++
++            case S_4_4_4:
++            default:
++                return inputMatrix;
++        }
++    }
++
++}
+diff --git a/src/main/java/Jpeg/Transform.java b/src/main/java/Jpeg/Transform.java
+index 815e571..1312319 100644
+--- a/src/main/java/Jpeg/Transform.java
++++ b/src/main/java/Jpeg/Transform.java
+@@ -1,128 +1,118 @@
+-package Jpeg;
+-
+-import Enums.TransformType;
+-import Jama.Matrix;
+-
+-public class Transform {
+-
+-    /**
+-     * Transformace matice jedne barevne slozky
+-     *
+-     * @param input     Matice pro transformaci
+-     * @param type      Typ transformace
+-     * @param blockSize Velikost bloku
+-     * @return Transformovana matice
+-     */
+-    public static Matrix transform(Matrix input, TransformType type, int blockSize) {
+-        Matrix transformMatrix = getTransformMatrix(type, blockSize);
+-
+-        Matrix output = new Matrix(input.getRowDimension(), input.getColumnDimension());
+-
+-        for (int col = 0; col < (input.getColumnDimension() - blockSize + 1); col += blockSize) {
+-            for (int row = 0; row < (input.getRowDimension() - blockSize + 1); row += blockSize) {
+-                Matrix block = input.getMatrix(row, row + blockSize - 1, col, col + blockSize - 1); // B
+-
+-                Matrix transformedBlock = transformMatrix.times(block);                 // A * B
+-                transformedBlock = transformedBlock.times(transformMatrix.transpose()); //(A * B) * A^T
+-
+-                output.setMatrix(row, row + blockSize - 1, col, col + blockSize - 1, transformedBlock);
+-            }
+-        }
+-
+-        return output;
+-    }
+-
+-    /**
+-     * Inverzni transformace
+-     *
+-     * @param input     Matice pro transformaci
+-     * @param type      Typ transformace
+-     * @param blockSize Velikost bloku
+-     * @return Zpetne transformovana matice
+-     */
+-    public static Matrix inverseTransform(Matrix input, TransformType type, int blockSize) {
+-        Matrix transformMatrix = getTransformMatrix(type, blockSize);
+-
+-        Matrix output = new Matrix(input.getRowDimension(), input.getColumnDimension());
+-
+-        for (int col = 0; col < (input.getColumnDimension() - blockSize + 1); col += blockSize) {
+-            for (int row = 0; row < (input.getRowDimension() - blockSize + 1); row += blockSize) {
+-                Matrix block = input.getMatrix(row, row + blockSize - 1, col, col + blockSize - 1); // B
+-
+-                Matrix transformedBlock = transformMatrix.transpose().times(block);     // A^T * B
+-                transformedBlock = transformedBlock.times(transformMatrix);             //(A^T * B) * A
+-
+-                output.setMatrix(row, row + blockSize - 1, col, col + blockSize - 1, transformedBlock);
+-            }
+-        }
+-
+-        return output;
+-    }
+-
+-    /**
+-     * Ziskani transformacni matice pro DCT nebo WHT transformaci ve spravne velikosti
+-     *
+-     * @param type      Typ transformace
+-     * @param blockSize Velikost bloku
+-     * @return Transformacni matice
+-     */
+-    public static Matrix getTransformMatrix(TransformType type, int blockSize) {
+-        switch (type) {
+-            case WHT:
+-                return getWHTMatrix(blockSize).times(1 / Math.sqrt(blockSize));
+-            case DCT:
+-            default:
+-                return getDCTMatrix(blockSize);
+-        }
+-    }
+-
+-    /**
+-     * Vytvori transformacni matici pro DCT transformaci
+-     * DCT = Discrete Cosine Transform
+-     *
+-     * @param blockSize Velikost bloku
+-     * @return Transformacni matice
+-     */
+-    private static Matrix getDCTMatrix(int blockSize) {
+-        Matrix transformMatrix = new Matrix(blockSize, blockSize);
+-        double pom, sqrt;
+-
+-        sqrt = Math.sqrt(1.0 / blockSize); // Nastaveni koeficientu pro prvni (row = 0) radek
+-
+-        for (int row = 0; row < blockSize; row++) {
+-            if (row == 1) sqrt = Math.sqrt(2.0 / blockSize); // Nastaveni koeficientu pro druhy (row = 1) radek
+-
+-            for (int col = 0; col < blockSize; col++) {
+-                pom = sqrt * Math.cos(((2 * col + 1) * row * Math.PI) / (2 * blockSize));
+-
+-                transformMatrix.set(row, col, pom); // Nastaveni hodnoty do transfromacni matice
+-            }
+-        }
+-
+-        return transformMatrix;
+-    }
+-
+-
+-    /**
+-     * Vytvori transformacni matici pro WHT transformaci
+-     * WHT = Walsh Hadamard Transform
+-     *
+-     * @param blockSize Velikost bloku
+-     * @return Transformacni matice, nutno jeste vynasobit 1 / sqrt(blockSize)
+-     */
+-    public static Matrix getWHTMatrix(int blockSize) {
+-        if (blockSize == 1) return new Matrix(1, 1, 1);
+-        else {
+-            Matrix recurse = getWHTMatrix(blockSize / 2);
+-            Matrix output = new Matrix(blockSize, blockSize);
+-            int size = blockSize / 2;
+-
+-            output.setMatrix(0, size - 1, 0, size - 1, recurse);
+-            output.setMatrix(0, size - 1, size, 2 * size - 1, recurse);
+-            output.setMatrix(size, 2 * size - 1, 0, size - 1, recurse);
+-            output.setMatrix(size, 2 * size - 1, size, 2 * size - 1, recurse.times(-1));
+-
+-            return output;
+-        }
+-    }
+-}
++package Jpeg;
++
++import Enums.TransformType;
++import Jama.Matrix;
++
++public class Transform {
++    // N - block size
++    // based on the transform type we'll modify the matrix
++    public static Matrix getTransformMatrix(TransformType type, int N) {
++        switch (type) {
++            case WHT:
++                return getWHTMatrix(N).times(1 / Math.sqrt(N));
++            case DCT:
++            default:
++                return getDCTMatrix(N);
++        }
++    }
++
++    // creation of Walsh-Hadamard transform matrix
++    public static Matrix getWHTMatrix(int N) {
++        Matrix transM;
++        switch(N){
++            case 1:
++                transM = new Matrix(1, 1 ,1);
++                return transM;
++            default:
++                Matrix recurse = getWHTMatrix(N / 2); // each recursion decrease block size
++                transM = new Matrix(N, N);
++                int len = N / 2;
++
++                // printm(recurse,"recurse");
++                // printm(transM,"first");
++                
++                // filling the matrix by quaters
++                transM.setMatrix(0, len - 1, 0, len - 1, recurse);
++
++                transM.setMatrix(0, len - 1, len, 2 * len - 1, recurse);
++
++                transM.setMatrix(len, 2 * len - 1, 0, len - 1, recurse);
++
++                transM.setMatrix(len, 2 * len - 1, len, 2 * len - 1, recurse.times(-1));
++
++                // printm(transM,"final");
++
++                return transM;
++        }
++    }
++
++    // Discrete cosine transform
++    private static Matrix getDCTMatrix(int N) {
++        Matrix transM = new Matrix(N, N);
++        double formula;
++        double square;
++
++        for (int row = 0; row < N; row++) {
++
++            if(row == 0){
++                square = Math.sqrt(1.0 / N); // first row square
++            }
++            else{    
++                square = Math.sqrt(2.0 / N);  // we change the square for the second row
++            }
++            
++            for (int col = 0; col < N; col++) {
++                formula = square * Math.cos(((2 * col + 1) * row * Math.PI) / (2 * N));
++                transM.set(row, col, formula);
++                
++                // printm(transM, Integer.toString(row)); // prints matrix with current row num
++            }
++        }
++        return transM;
++    }
++    
++
++    public static Matrix transform(Matrix input, TransformType type, int N) {
++        Matrix transM = getTransformMatrix(type, N);
++
++        Matrix output = new Matrix(input.getRowDimension(), input.getColumnDimension());
++
++        for (int col = 0; col < (input.getColumnDimension() - N + 1); col += N) {
++            for (int row = 0; row < (input.getRowDimension() - N + 1); row += N) {
++                Matrix block = input.getMatrix(row, row + N - 1, col, col + N - 1); // block size based on N
++
++                Matrix transBlock = transM.times(block); // multiply transformation matrix with block
++                transBlock = transBlock.times(transM.transpose()); // turn matrix
++                
++                output.setMatrix(row, row + N - 1, col, col + N - 1, transBlock); // put transfomred block into final matrix
++            }
++        }
++
++        return output;
++    }
++    public static Matrix inverseTransform(Matrix input, TransformType type, int N) { // same as transform but with different transpose
++        Matrix transM = getTransformMatrix(type, N);
++
++        Matrix output = new Matrix(input.getRowDimension(), input.getColumnDimension());
++
++        for (int col = 0; col < (input.getColumnDimension() - N + 1); col += N) {
++            for (int row = 0; row < (input.getRowDimension() - N + 1); row += N) {
++                Matrix block = input.getMatrix(row, row + N - 1, col, col + N - 1); 
++
++                Matrix transBlock = transM.transpose().times(block);
++                transBlock = transBlock.times(transM);
++
++                output.setMatrix(row, row + N - 1, col, col + N - 1, transBlock);
++            }
++        }
++
++        return output;
++    }
++
++    // for debuging
++    private static void printm(Matrix matrix, String msg){
++        if (msg == null) msg = "";
++        System.out.println(msg);
++        matrix.print(matrix.getColumnDimension(), 4);
++    }
++}
+diff --git a/src/main/java/Jpeg/Watermark.java b/src/main/java/Jpeg/Watermark.java
+new file mode 100644
+index 0000000..47dc42b
+--- /dev/null
++++ b/src/main/java/Jpeg/Watermark.java
+@@ -0,0 +1,303 @@
++package Jpeg;
++
++import java.awt.Color;
++import java.awt.Graphics2D;
++import java.awt.image.BufferedImage;
++import java.io.ByteArrayInputStream;
++import java.io.ByteArrayOutputStream;
++import java.io.IOException;
++import java.util.Random;
++
++import javax.imageio.ImageIO;
++
++import Enums.TransformType;
++import Jama.Matrix;
++import ij.ImagePlus;
++import ij.process.ImageProcessor;
++
++// notes 
++    // watermark should be black and white picture - all values in watermark should be either 1 or 0
++    // watermark should be same size as Matrix - BufferedImage to Matrix - toByteArray to convert to bytes
++    //
++    // convert values in matrix to bytes array and in every subarray change given bit (depth) - access the bit by using '<<'
++    // permutation - create pesudorandom matrix with the same size as watermark and xor the watermark 
++    //      to obtain watermak back we need to xor it again 
++    // decode bit by taking the bits in the same bit depth and extract it
++
++
++// ############################# LSB ######################################
++public class Watermark {
++    private static byte randByte  = 123; 
++    private static byte[][] randomSequence = RandomValues();
++    public static Matrix ApplyLSB(Matrix component, BufferedImage watermark, int depth) throws IOException {
++       
++        byte[][] watermarkByte = blackWhiteBits(watermark,depth);
++
++        int row = component.getColumnDimension(); 
++        int col = component.getRowDimension(); 
++        double[][] doubleArray = new double[row][col];
++        for (int i = 0; i < row; i++){
++            for (int j = 0; j < col; j++){
++                double value = component.get(i, j); // switch this to flip the image 
++                byte byteVal = (byte) value;
++                
++                // System.out.println("before zeroing:" + String.format("%8s", Integer.toBinaryString(byteVal & 0xFF)).replace(' ', '0'));
++
++                byteVal &= ~(1 << depth); // used to set specific bit to zero
++
++                // System.out.println("after zeroing:" + String.format("%8s", Integer.toBinaryString(byteVal & 0xFF)).replace(' ', '0'));
++
++                byte byteWatermark =  watermarkByte[i][j];
++                // byteWatermark ^= randomSequence[i][j];
++                byte sum =(byte) (byteVal + byteWatermark);
++
++                doubleArray[i][j] = sum & 0xff; 
++
++                // System.out.println("pic byte:" + String.format("%8s", Integer.toBinaryString(byteVal & 0xFF)).replace(' ', '0'));
++                // System.out.println("watermark byte:" + String.format("%8s", Integer.toBinaryString(byteInArray[i][j] & 0xFF)).replace(' ', '0'));
++                // System.out.println("Sum " + String.format("%8s", Integer.toBinaryString(sum & 0xFF)).replace(' ', '0'));
++                // System.out.println("double " + doubleArray[i][j]);
++
++            } 
++        }
++        return new Matrix(doubleArray);
++    }
++
++    public static byte[][] blackWhiteBits(BufferedImage image, int depth){
++        int width = image.getWidth();
++        int height = image.getHeight();
++        
++        byte[][] matrix = new byte[height][width];
++
++        for (int y = 0; y < height; y++) {
++            for (int x = 0; x < width; x++) {
++                int color = image.getRGB(x, y) & 0xFF; // 255 in decimal
++                // System.out.println(color);
++                byte b = 0;
++
++                if(color == 0){
++                    // b = (byte) 0xFF;  // set byte to all ones
++                    // byte compare = (byte) ~(1 << depth);  // create a eight 1s with the nth bit set to zero
++                    // b |= compare; // logical AND where if bit is not 1 its set to 0
++                } else if (color==255){
++
++                    byte compare = (byte) (1 << depth);  // create a eight 0s with the nth bit set to one
++                    b |= compare; // logical OR where if bit is not 0 its set to 0 
++                }
++                matrix[y][x] = b;
++            }
++        }
++        return matrix; 
++    }
++
++    private static byte[][] RandomValues(){
++        int numRows = 512;
++        int numCols = 512;
++        
++        byte[][] arr = new byte[numRows][numCols];
++        
++        Random random = new Random();
++        
++        for (int i = 0; i < numRows; i++) {
++            for (int j = 0; j < numCols; j++) {
++                arr[i][j] = (byte) random.nextInt(255); // random byte value between 0 and 255
++            }
++        }
++        return arr;
++    }
++
++    // private static byte[] moveBitsToH(byte[] byteArray, int depth){
++    //     /* Set bit at value `depth` to one and set all other bits as zero */ 
++    //     byte[] output = new byte[byteArray.length];
++    //     for (int i = 0; i < output.length; i++) {
++    //         byte val = byteArray[i];
++    //         val = (byte) (val & 0x0); //zeroes all bits
++    //         byte newVal = (byte) (1 << depth);  // sets specific bit to one  
++            
++    //         // System.out.println(String.format("%8s", Integer.toBinaryString(newVal & 0xFF)).replace(' ', '0'));
++    //         output[i] = newVal;
++    //     }
++    //     return output;
++    // }
++    
++    
++    public static Matrix decodeLSB(Matrix component, int depth) {
++
++        int row = component.getRowDimension();
++        int col = component.getColumnDimension(); 
++
++        double[][] extractedWatermark = new double[row][col];
++        for (int i = 0; i < row; i++) {
++            for (int j = 0; j < col; j++) {
++                double value = component.get(i, j); 
++                byte byteVal = (byte) value ; // presun jednicku na hladinu a nasobisaByte
++                byteVal &= (1<<depth);          
++                // System.out.println("pic byte:" + String.format("%8s", Integer.toBinaryString(byteVal & 0xFF)).replace(' ', '0')); 
++                // byteVal ^= randomSequence[i][j];
++                double setVal = byteVal & 0xff;
++                // System.out.println(extractedWatermark[i][j]);
++                if (setVal != 0){
++                    setVal = 255;
++                } else {
++                    setVal = 0;
++                }
++                extractedWatermark[i][j] = setVal;
++
++            }
++        }
++        //convert to buffered image
++        Matrix final_extract = new Matrix(extractedWatermark);
++        // BufferedImage image = Process.getOneColorImageFromYCbCr(final_extract);
++
++        return final_extract;
++    }
++
++// ############################# DCT ###########################################################
++        public static Matrix ApplyDCT(Matrix input, BufferedImage Watermark, int depth, int[] cof1, int[] cof2) {
++        int N = 8;
++        int in11 = cof1[0]; 
++        int in12 = cof1[1]; 
++        int in21 = cof2[0]; 
++        int in22 = cof2[1]; 
++
++        TransformType type = TransformType.DCT;
++        Matrix transM = Transform.getTransformMatrix(type, N);
++
++        Matrix output = new Matrix(input.getRowDimension(), input.getColumnDimension());
++
++        byte[][] watermarkByte = blackWhiteBits(Watermark,0); // makes sure we get only zeroes and ones in watermark
++ 
++        for (int col = 0; col < (input.getColumnDimension() - N + 1); col += N) {
++            for (int row = 0; row < (input.getRowDimension() - N + 1); row += N) {
++                Matrix block = input.getMatrix(row, row + N - 1, col, col + N - 1); // block size based on N
++                Matrix curr_block = transM.times(block); // multiply transformation matrix with block
++                curr_block = curr_block.times(transM.transpose()); // turn matrix
++
++                if (!((curr_block.get(in11,in12)-curr_block.get(in21,in22))>depth)){
++                    curr_block.set(in11,in12,curr_block.get(in11, in12) + depth/2);
++                    curr_block.set(in21,in22,curr_block.get(in21, in22) - depth/2);
++                }
++                byte curr_byte = watermarkByte[col/8][row/8];
++                if (curr_byte == 0){
++                    if (!(curr_block.get(in11,in12) > curr_block.get(in21,in22))){ // if doesn't hold - swap the coeficients
++                        double swap_value = curr_block.get(in11, in12);
++                        curr_block.set(in11,in12,curr_block.get(in21, in22) );
++                        curr_block.set(in21, in22, swap_value);
++                    }
++                }
++                else if (curr_byte == 1){
++                    if (!(curr_block.get(in11,in12) <= curr_block.get(in21,in22))){
++                        // if doesn't hold - swap the coeficients
++                        double swap_value = curr_block.get(in11, in12);
++                        curr_block.set(in11,in12,curr_block.get(in21, in22) );
++                        curr_block.set(in21, in22, swap_value );
++                    }
++                }
++                output.setMatrix(row, row + N - 1, col, col + N - 1, curr_block); // put transfomred block into final matrix
++            }
++        }
++ 
++        Matrix transformBack = Transform.inverseTransform(output,type, N) ;
++        return transformBack;
++    }
++    
++
++    public static Matrix extractDCT(Matrix input, int depth, int[] cof1, int[] cof2) {
++        int N = 8;
++        int in11 = cof1[0]; 
++        int in12 = cof1[1]; 
++        int in21 = cof2[0]; 
++        int in22 = cof2[1]; 
++
++        TransformType type = TransformType.DCT;
++        Matrix transM = Transform.getTransformMatrix(type, N);
++
++        // Matrix output = new Matrix(input.getRowDimension(), input.getColumnDimension());
++
++        double[][] watermarkByte = new double[input.getRowDimension()/8][input.getColumnDimension()/8];
++        for (int col = 0; col < (input.getColumnDimension() - N + 1); col += N) {
++            for (int row = 0; row < (input.getRowDimension() - N + 1); row += N) {
++                Matrix block = input.getMatrix(row, row + N - 1, col, col + N - 1); // block size based on N
++                Matrix curr_block = transM.times(block); // multiply transformation matrix with block
++                curr_block = curr_block.times(transM.transpose()); // turn matrix
++
++                double decice_val = 0;
++                if (((curr_block.get(in11,in12)) > (curr_block.get(in21,in22)))){ // if doesn't hold - swap the coeficients
++                        decice_val = 0;
++                    } 
++                else if (((curr_block.get(in11,in12)) <= (curr_block.get(in21,in22)))){
++                        decice_val = 255; // can be considered as one
++                    }
++                
++                watermarkByte[col/8][row/8] = decice_val;
++            }
++        }
++        // Matrix transformBack = Transform.inverseTransform(output,type, N) ;
++        // return transformBack;
++        Matrix final_extract = new Matrix(watermarkByte);
++        return final_extract;
++    }
++
++// ############################# ATTACKS ######################################
++     public static BufferedImage JPEGAttack(BufferedImage inputImage, int quality) throws IOException{
++        ImagePlus imp = new ImagePlus("input image", inputImage);
++        ImageProcessor ip = imp.getProcessor();
++
++        ByteArrayOutputStream out = new ByteArrayOutputStream();
++        ImageIO.write(ip.getBufferedImage(), "jpg", out); // compress to JPEG
++
++        ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
++        BufferedImage compressedImage = ImageIO.read(in);
++        
++        return compressedImage;
++    }
++
++    public static BufferedImage CropAttack(BufferedImage inputImage, int cropSize) {
++        int width = inputImage.getWidth();
++        int height = inputImage.getHeight();
++    
++        BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
++        Graphics2D g2d = outputImage.createGraphics();
++        g2d.setColor(Color.WHITE);
++        g2d.fillRect(0, 0, width, height);
++    
++        g2d.drawImage(inputImage, cropSize, cropSize, width - (2*cropSize), height - (2*cropSize), null);
++        g2d.dispose();
++    
++        return outputImage;
++    }
++    public static BufferedImage FlipAttack(BufferedImage inputImage){
++        ImagePlus imp = new ImagePlus("input image", inputImage); 
++        ImageProcessor ip = imp.getProcessor(); 
++
++        ip.flipHorizontal(); 
++
++        BufferedImage mirroredImage = ip.getBufferedImage(); 
++
++        return mirroredImage;
++    }
++
++// ############################# OTHER ######################################
++    public static void printNestedByteInBinary(byte[][] byteArray) {
++        int rows = byteArray.length;
++        int cols = byteArray[0].length;
++
++        for (int i = 0; i < rows; i++) {
++            for (int j = 0; j < cols; j++) {
++                String binaryString = Integer.toBinaryString(byteArray[i][j] & 0xFF);
++                binaryString = String.format("%8s", binaryString).replace(' ', '0');
++                System.out.print(binaryString + " ");
++            }
++        }
++    }
++   public static void printMatrix(Matrix matrix) {
++    double[][] array = matrix.getArray();
++    for (int i = 0; i < array.length; i++) {
++        for (int j = 0; j < array[i].length; j++) {
++            System.out.print(array[i][j] + " ");
++        }
++        System.out.println();
++        }
++    } 
++}
++   
+diff --git a/src/main/java/Main.java b/src/main/java/Main.java
+index 9e86b8d..b543463 100644
+--- a/src/main/java/Main.java
++++ b/src/main/java/Main.java
+@@ -1,10 +1,10 @@
+-import Core.JFXMain;
+-
+-public class Main {
+-
+-    // Od Javy 9 je nutné spouštět JavaFX aplikaci mimo třídu aplikace.
+-    public static void main(String[] args) {
+-        JFXMain.main(args);
+-    }
+-
+-}
++import Core.JFXMain;
++
++public class Main {
++
++    // Od Javy 9 je nutné spouštět JavaFX aplikaci mimo třídu aplikace.
++    public static void main(String[] args) {
++        JFXMain.main(args);
++    }
++
++}
+diff --git a/src/main/resources/Graphics/MainWindow.fxml b/src/main/resources/Graphics/MainWindow.fxml
+index 76dd1eb..7789807 100644
+--- a/src/main/resources/Graphics/MainWindow.fxml
++++ b/src/main/resources/Graphics/MainWindow.fxml
+@@ -22,7 +22,7 @@
+ 
+ <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Graphics.MainWindowController">
+    <top>
+-      <MenuBar BorderPane.alignment="CENTER">
++      <MenuBar prefHeight="0.0" prefWidth="434.0" BorderPane.alignment="CENTER">
+         <menus>
+           <Menu mnemonicParsing="false" text="File">
+             <items>
+@@ -41,8 +41,8 @@
+         </menus>
+       </MenuBar>
+    </top>
+-   <center>
+-      <VBox spacing="10.0" styleClass="background" BorderPane.alignment="CENTER">
++   <bottom>
++      <VBox prefHeight="730.0" prefWidth="400.0" spacing="10.0" styleClass="background" BorderPane.alignment="CENTER">
+          <children>
+             <GridPane alignment="CENTER" hgap="5.0" layoutX="10.0" layoutY="10.0" styleClass="background" vgap="5.0">
+                <columnConstraints>
+@@ -215,6 +215,47 @@
+                   <Insets left="5.0" right="5.0" top="5.0" />
+                </padding>
+             </GridPane>
++            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Watermarks" textAlignment="CENTER" wrappingWidth="105.498046875">
++               <font>
++                  <Font size="16.0" />
++               </font>
++            </Text>
++            <GridPane layoutX="10.0" layoutY="780.0" prefHeight="112.0" prefWidth="400.0">
++               <columnConstraints>
++                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
++               </columnConstraints>
++               <rowConstraints>
++                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
++                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
++                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
++               </rowConstraints>
++               <children>
++                  <HBox prefHeight="100.0" prefWidth="200.0">
++                     <children>
++                        <Button mnemonicParsing="false" onAction="#LSBWatermark" prefHeight="26.0" prefWidth="102.0" text="Apply LSB" />
++                        <ComboBox fx:id="watermarkLSB" prefHeight="25.0" prefWidth="114.0" promptText="Comp." />
++                        <Spinner fx:id="bitDepth" prefHeight="25.0" prefWidth="80.0" />
++                        <Button mnemonicParsing="false" onAction="#LSBWatermarkDecode" prefHeight="25.0" prefWidth="131.0" text="Decode LSB" />
++                     </children>
++                  </HBox>
++                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
++                     <children>
++                        <Button mnemonicParsing="false" onAction="#DCTWatermark" prefHeight="25.0" prefWidth="98.0" text="Apply 2D-DCT" />
++                        <Button mnemonicParsing="false" onAction="#DCTExtraction" prefHeight="25.0" prefWidth="82.0" text="Extract DCT" />
++                        <ComboBox fx:id="coeficient1" prefHeight="25.0" prefWidth="78.0" />
++                        <ComboBox fx:id="coeficient2" prefHeight="25.0" prefWidth="74.0" />
++                        <Spinner fx:id="depthDCT" prefHeight="25.0" prefWidth="80.0" />
++                     </children>
++                  </HBox>
++                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
++                     <children>
++                        <Button mnemonicParsing="false" onAction="#JPEGCompress" prefHeight="25.0" prefWidth="123.0" text="JPEG compress" />
++                        <Button mnemonicParsing="false" onAction="#CropImage" prefHeight="25.0" prefWidth="129.0" text="Image crop" />
++                        <Button mnemonicParsing="false" onAction="#ImageFlip" prefHeight="25.0" prefWidth="144.0" text="Image flip" />
++                     </children>
++                  </HBox>
++               </children>
++            </GridPane>
+          </children>
+          <BorderPane.margin>
+             <Insets />
+@@ -223,5 +264,5 @@
+             <Insets bottom="5.0" />
+          </padding>
+       </VBox>
+-   </center>
++   </bottom>
+ </BorderPane>
